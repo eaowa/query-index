@@ -5,32 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Single Page with Multiple Tables</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    a {
-      display: block;
-      margin: 10px 0;
-      color: #333;
-      font-size: 16px;
-      text-decoration: none;
-    }
-    a:hover {
-      color: #0077cc;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
     table {
       border-collapse: collapse;
       width: 100%;
       max-width: 100%;
-      margin-top: 30px;
+      height: 400px;  /* Optional: Set a fixed height */
+      overflow-y: auto;
+      display: block;
     }
     th, td {
       padding: 12px;
@@ -39,13 +20,15 @@
     }
     th {
       background-color: #f4f4f4;
+      position: sticky;
+      top: 0; /* Stick to the top */
+      z-index: 2; /* Make sure header stays on top */
     }
-    td a {
-      color: #0077cc;
-      text-decoration: none;
-    }
-    td a:hover {
-      text-decoration: underline;
+    td {
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
     }
   </style>
 </head>
