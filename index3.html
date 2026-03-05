@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single Page with Multiple Tables</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    a {
+      display: block;
+      margin: 10px 0;
+      color: #333;
+      font-size: 16px;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #0077cc;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 30px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    td a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    td a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Index Page with Links to Tables</h1>
+    <p>Click on the links below to view the tables:</p>
+    
+    <a href="#waterSupplyTable">Water Supply Queries</a>
+    <a href="#financeQueriesTable">Finance Queries</a>
+
+    <h2 id="waterSupplyTable">Water Supply Queries</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Query</th>
+          <th>Response</th>
+          <th>Screenshot</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>John Doe</td>
+          <td>2026-03-01</td>
+          <td>What is the current status of the water supply?</td>
+          <td>The water supply is functioning normally with no issues reported.</td>
+          <td><a href="images/water1.png" target="_blank">View Screenshot</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jane Smith</td>
+          <td>2026-03-02</td>
+          <td>When is the next maintenance scheduled for the water tanks?</td>
+          <td>The maintenance will take place on March 15, 2026.</td>
+          <td><a href="images/water2.png" target="_blank">View Screenshot</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="financeQueriesTable">Finance Queries</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Query</th>
+          <th>Response</th>
+          <th>Screenshot</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Michael Brown</td>
+          <td>2026-03-03</td>
+          <td>Can I get an update on the last budget meeting?</td>
+          <td>The budget was reviewed, and the proposed allocation was approved.</td>
+          <td><a href="images/finance1.png" target="_blank">View Screenshot</a></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Emily Johnson</td>
+          <td>2026-03-04</td>
+          <td>What is the status of the last payment request for maintenance?</td>
+          <td>The payment was processed on March 2, 2026, and is now complete.</td>
+          <td><a href="images/finance2.png" target="_blank">View Screenshot</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</body>
+</html>
