@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Supply Queries</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
         
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -19,10 +17,7 @@
             line-height: 1.5;
         }
         
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
+        .container { max-width: 1000px; margin: auto; }
         
         h1 {
             font-size: clamp(1.6rem, 5vw, 2.2rem);
@@ -35,7 +30,6 @@
             text-align: center;
         }
         
-        /* View Toggle Buttons */
         .view-toggle {
             display: flex;
             gap: 10px;
@@ -45,232 +39,126 @@
         }
         
         .view-btn {
-            padding: 10px 20px;
-            font-size: 0.9rem;
+            padding: 12px 24px;
+            font-size: 0.95rem;
             font-weight: 500;
             border: none;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.2s ease;
-            min-height: 44px;
+            min-height: 48px;
+            touch-action: manipulation;
         }
         
-        .view-btn.table-view {
-            background: #f8fbff;
-            color: #0077cc;
-            box-shadow: 0 2px 8px rgba(0,119,204,0.2);
-        }
-        
-        .view-btn.card-view {
+        .view-btn.table-active {
             background: linear-gradient(135deg, #0077cc, #005fa3);
             color: white;
             box-shadow: 0 4px 12px rgba(0,119,204,0.3);
         }
         
-        .view-btn.active {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,119,204,0.4);
+        .view-btn.card-active {
+            background: linear-gradient(135deg, #0077cc, #005fa3);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3);
+        }
+        
+        .view-btn:not(.table-active):not(.card-active) {
+            background: #f8fbff;
+            color: #0077cc;
+            box-shadow: 0 2px 8px rgba(0,119,204,0.2);
         }
         
         .view-btn:active {
-            transform: translateY(0);
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(0,119,204,0.4);
         }
         
         .lang-btn {
-            width: 100%;
-            max-width: 280px;
-            height: 56px;
-            padding: 0 1rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin: 12px auto;
-            cursor: pointer;
-            background: linear-gradient(135deg, #0077cc, #005fa3);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            display: block;
-            box-shadow: 0 4px 12px rgba(0, 119, 204, 0.3);
-            transition: all 0.2s ease;
+            width: 100%; max-width: 280px; height: 56px; padding: 0 1rem;
+            font-size: 1.1rem; font-weight: 500; margin: 12px auto;
+            background: linear-gradient(135deg, #0077cc, #005fa3); color: white;
+            border: none; border-radius: 12px; display: block;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3);
+            cursor: pointer; transition: all 0.2s ease;
         }
-        
-        .lang-btn:active {
-            box-shadow: 0 2px 8px rgba(0, 119, 204, 0.4);
-            transform: translateY(1px);
-        }
+        .lang-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
         
         .page { display: none; }
         .active { display: block; }
         
+        /* Table styles */
         .table-wrapper {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
+        table { width: 100%; border-collapse: collapse; }
         th {
             background: linear-gradient(135deg, #f8f9ff, #f0f4ff);
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            color: #444;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 1rem; text-align: left; font-weight: 600; color: #444;
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
             border-bottom: 2px solid #e2e8ff;
         }
+        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; }
         
-        td {
-            padding: 1rem;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        
-        /* Card View */
-        .card-view table,
-        .card-view thead {
-            display: block;
-        }
-        
+        /* Card styles - ONLY when card-view class active */
         .card-view tr {
-            display: block;
-            margin-bottom: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8ff;
-            background: white;
-            overflow: hidden;
-            break-inside: avoid;
+            display: block !important; margin-bottom: 1rem; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8ff;
+            background: white; overflow: hidden;
         }
         
+        .card-view thead { display: none !important; }
         .card-view td {
-            display: block;
-            text-align: right;
-            position: relative;
-            padding: 0.75rem 1rem 0.75rem 3rem;
-            border: none;
-            border-bottom: 1px solid #f8fbff;
-            min-height: 48px;
+            display: block !important; text-align: right; position: relative;
+            padding: 0.75rem 1rem 0.75rem 3rem !important; border: none !important;
+            border-bottom: 1px solid #f8fbff !important; min-height: 48px;
         }
         
         .card-view td:before {
-            content: attr(data-label) ":";
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 30%;
-            padding: 0 0.75rem;
-            font-weight: 600;
-            color: #555;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            background: #f8fbff;
-            border-right: 1px solid #e2e8ff;
+            content: attr(data-label) ":"; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 30%; padding: 0 0.75rem; font-weight: 600; color: #555; text-align: left;
+            display: flex; align-items: center; background: #f8fbff; border-right: 1px solid #e2e8ff;
             font-size: 0.85rem;
         }
+        .card-view td:last-child { border-bottom: none !important; padding-bottom: 1rem !important; }
+        .card-view td:last-child:before { border-right: none; background: transparent; }
         
-        .card-view td:last-child {
-            border-bottom: none;
-            padding-bottom: 1rem;
-        }
-        
-        .card-view td:last-child:before {
-            border-right: none;
-            background: transparent;
-        }
-        
-        /* Hide cards on desktop table view */
+        /* Desktop: cards revert to table */
         @media (min-width: 769px) {
-            .card-view table,
-            .card-view thead {
-                display: table !important;
-            }
-            
-            .card-view tr {
-                display: table-row !important;
-            }
-            
+            .card-view tr { display: table-row !important; }
+            .card-view thead { display: table-header-group !important; }
             .card-view td {
-                display: table-cell !important;
-                text-align: left !important;
-                padding: 1rem !important;
-                position: static !important;
+                display: table-cell !important; text-align: left !important;
+                padding: 1rem !important; position: static !important;
             }
-            
-            .card-view td:before {
-                display: none !important;
-            }
+            .card-view td:before { display: none !important; }
         }
         
-        a {
-            color: #0077cc;
-            text-decoration: none;
-            font-weight: 500;
-        }
+        a { color: #0077cc; text-decoration: none; font-weight: 500; }
+        a:active { color: #005fa3; }
         
-        a:active {
-            color: #005fa3;
-        }
-        
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 1.5rem;
-        }
-        
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; }
         .home-btn {
-            background: linear-gradient(135deg, #0077cc, #005fa3);
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 119, 204, 0.3);
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.2s ease;
+            background: linear-gradient(135deg, #0077cc, #005fa3); border: none;
+            font-size: 1.3rem; cursor: pointer; padding: 12px; border-radius: 12px;
+            color: white; box-shadow: 0 4px 12px rgba(0,119,204,0.3);
+            width: 48px; height: 48px; display: flex; align-items: center;
+            justify-content: center; flex-shrink: 0; transition: all 0.2s ease;
         }
-        
-        .home-btn:active {
-            box-shadow: 0 2px 8px rgba(0, 119, 204, 0.4);
-            transform: translateY(1px);
-        }
+        .home-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
         
         .disclaimer {
-            font-size: 0.9rem;
-            color: #666;
-            text-align: left;
-            margin: 1rem 0 2rem 0;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 1.2rem;
-            border-radius: 12px;
-            border-left: 4px solid #0077cc;
-            line-height: 1.6;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-size: 0.9rem; color: #666; text-align: left; margin: 1rem 0 2rem 0;
+            background: rgba(255,255,255,0.8); padding: 1.2rem; border-radius: 12px;
+            border-left: 4px solid #0077cc; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
         @media (max-width: 768px) {
-            th, td {
-                padding: 0.75rem 0.5rem;
-                font-size: 0.9rem;
-            }
-            
-            .view-toggle {
-                padding: 0 10px;
-            }
+            th, td { padding: 0.75rem 0.5rem; font-size: 0.9rem; }
+            .view-toggle { padding: 0 10px; }
         }
     </style>
 </head>
@@ -290,39 +178,28 @@
                 <h1>Water Supply Queries</h1>
             </div>
             <p class="disclaimer">
-                This is a member‑maintained index of queries posted in the official WhatsApp group. It is not an official record of the society and does not replace any statutory documentation that must be maintained by the Secretary. This is a voluntary undertaking by the compiler who is not an elected office‑bearer.
+                This is a member‑maintained index of queries posted in the official WhatsApp group...
             </p>
             
             <div class="view-toggle">
-                <button class="view-btn table-view active" onclick="setView('table')">Table View</button>
-                <button class="view-btn card-view" onclick="setView('card')">Card View</button>
+                <button class="view-btn table-active" onclick="setView('table', this)">Table View</button>
+                <button class="view-btn" onclick="setView('card', this)">Card View</button>
             </div>
             
             <div class="table-wrapper">
-                <table class="table-view">
+                <table>
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Query</th>
-                            <th>Response</th>
-                            <th>Screenshot</th>
-                        </tr>
+                        <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="ID">1</td>
-                            <td data-label="Name">John Doe</td>
-                            <td data-label="Date">2026-03-01</td>
+                            <td data-label="ID">1</td><td data-label="Name">John Doe</td><td data-label="Date">2026-03-01</td>
                             <td data-label="Query">What is the current status of the water supply?</td>
                             <td data-label="Response">The water supply is functioning normally.</td>
                             <td data-label="Screenshot"><a href="images/water1.png" target="_blank">View Screenshot</a></td>
                         </tr>
                         <tr>
-                            <td data-label="ID">2</td>
-                            <td data-label="Name">Jane Smith</td>
-                            <td data-label="Date">2026-03-02</td>
+                            <td data-label="ID">2</td><td data-label="Name">Jane Smith</td><td data-label="Date">2026-03-02</td>
                             <td data-label="Query">When is the next maintenance scheduled?</td>
                             <td data-label="Response">Maintenance is scheduled for March 15, 2026.</td>
                             <td data-label="Screenshot"><a href="images/water2.png" target="_blank">View Screenshot</a></td>
@@ -332,7 +209,7 @@
             </div>
         </div>
 
-        <!-- TELUGU PAGE -->
+        <!-- TELUGU PAGE (same structure) -->
         <div id="tePage" class="page">
             <div class="header">
                 <button class="home-btn" onclick="changeLanguage()">🏠</button>
@@ -340,35 +217,24 @@
             </div>
             
             <div class="view-toggle">
-                <button class="view-btn table-view active" onclick="setView('table')">Table View</button>
-                <button class="view-btn card-view" onclick="setView('card')">Card View</button>
+                <button class="view-btn table-active" onclick="setView('table', this)">Table View</button>
+                <button class="view-btn" onclick="setView('card', this)">Card View</button>
             </div>
             
             <div class="table-wrapper">
-                <table class="table-view">
+                <table>
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Query</th>
-                            <th>Response</th>
-                            <th>Screenshot</th>
-                        </tr>
+                        <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td data-label="ID">1</td>
-                            <td data-label="Name">జాన్ డో</td>
-                            <td data-label="Date">2026-03-01</td>
+                            <td data-label="ID">1</td><td data-label="Name">జాన్ డో</td><td data-label="Date">2026-03-01</td>
                             <td data-label="Query">ప్రస్తుతం నీటి సరఫరా స్థితి ఏమిటి?</td>
                             <td data-label="Response">నీటి సరఫరా సాధారణంగా పని చేస్తున్నది.</td>
                             <td data-label="Screenshot"><a href="images/water1.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
                         </tr>
                         <tr>
-                            <td data-label="ID">2</td>
-                            <td data-label="Name">జేన్ స్మిత్</td>
-                            <td data-label="Date">2026-03-02</td>
+                            <td data-label="ID">2</td><td data-label="Name">జేన్ స్మిత్</td><td data-label="Date">2026-03-02</td>
                             <td data-label="Query">నీటి ట్యాంకుల నిర్వహణ ఎప్పుడు జరుగుతుంది?</td>
                             <td data-label="Response">నిర్వహణ మార్చి 15, 2026న జరుగుతుంది.</td>
                             <td data-label="Screenshot"><a href="images/water2.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
@@ -380,47 +246,42 @@
     </div>
 
     <script>
-        let currentView = 'table';
-        
-        function setView(view) {
-            currentView = view;
+        function setView(viewType, clickedBtn) {
+            // Update ALL tables and buttons to new view
+            const tables = document.querySelectorAll('table');
+            const allTableBtns = document.querySelectorAll('.view-btn.table-active');
+            const allCardBtns = document.querySelectorAll('.view-btn.card-active');
             
-            // Update both pages
-            document.querySelectorAll('.table-view').forEach(table => {
-                table.className = `table-view ${view}`;
+            tables.forEach(table => {
+                table.className = viewType === 'card' ? 'card-view' : '';
             });
             
-            // Update button states
+            // Reset all buttons
             document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.classList.remove('active');
+                btn.classList.remove('table-active', 'card-active');
             });
-            event.target.classList.add('active');
             
-            // Sync across languages
-            document.querySelectorAll('.view-btn.table-view').forEach(btn => {
-                if (view === 'table') btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-            document.querySelectorAll('.view-btn.card-view').forEach(btn => {
-                if (view === 'card') btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
+            // Activate correct button on ALL pages
+            if (viewType === 'table') {
+                allTableBtns.forEach(btn => btn.classList.add('table-active'));
+            } else {
+                allCardBtns.forEach(btn => btn.classList.add('card-active'));
+            }
         }
         
         function setLanguage(lang) {
             localStorage.setItem("selectedLang", lang);
             document.getElementById("langPage").style.display = "none";
-            if (lang === "en") document.getElementById("enPage").style.display = "block";
-            if (lang === "te") document.getElementById("tePage").style.display = "block";
+            document.getElementById(lang + "Page").style.display = "block";
         }
-
+        
         function changeLanguage() {
             localStorage.removeItem("selectedLang");
             document.getElementById("enPage").style.display = "none";
             document.getElementById("tePage").style.display = "none";
             document.getElementById("langPage").style.display = "block";
         }
-
+        
         window.onload = function() {
             let savedLang = localStorage.getItem("selectedLang");
             if (savedLang) {
