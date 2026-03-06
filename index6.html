@@ -19,7 +19,7 @@ max-width:900px;
 margin:auto;
 }
 
-button{
+.lang-btn{
 width:200px;
 height:50px;
 padding:0;
@@ -36,7 +36,7 @@ align-items:center;
 justify-content:center;
 }
 
-button:hover{
+.lang-btn:hover{
 background:#005fa3;
 }
 
@@ -73,6 +73,17 @@ a:hover{
 text-decoration:underline;
 }
 
+.home-btn{
+position:fixed;
+top:15px;
+left:15px;
+
+background:none;
+border:none;
+font-size:26px;
+cursor:pointer;
+}
+  
 </style>
 </head>
 
@@ -86,8 +97,8 @@ text-decoration:underline;
 
 <h1>Select Language / భాషను ఎంచుకోండి</h1>
 
-<button onclick="setLanguage('en')">English</button>
-<button onclick="setLanguage('te')">తెలుగు</button>
+<button class="lang-btn" onclick="setLanguage('en')">English</button>
+<button class="lang-btn" onclick="setLanguage('te')">తెలుగు</button>
 
 </div>
 
