@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Supply Queries</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+margin:0;
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+button{
+padding:12px 25px;
+font-size:16px;
+margin:10px;
+cursor:pointer;
+background:#0077cc;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+button:hover{
+background:#005fa3;
+}
+
+.page{
+display:none;
+}
+
+.active{
+display:block;
+}
+
+table{
+border-collapse:collapse;
+width:100%;
+margin-top:25px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:10px;
+text-align:left;
+}
+
+th{
+background:#f4f4f4;
+}
+
+a{
+color:#0077cc;
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LANGUAGE SELECTION -->
+
+<div id="langPage">
+
+<h1>Select Language / భాషను ఎంచుకోండి</h1>
+
+<button onclick="setLanguage('en')">English</button>
+<button onclick="setLanguage('te')">తెలుగు</button>
+
+</div>
+
+
+<!-- ENGLISH PAGE -->
+
+<div id="enPage" class="page">
+
+<h1>Water Supply Queries</h1>
+
+<button onclick="changeLanguage()">Change Language</button>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Date</th>
+<th>Query</th>
+<th>Response</th>
+<th>Screenshot</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>1</td>
+<td>John Doe</td>
+<td>2026-03-01</td>
+<td>What is the current status of the water supply?</td>
+<td>The water supply is functioning normally.</td>
+<td><a href="images/water1.png" target="_blank">View Screenshot</a></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Jane Smith</td>
+<td>2026-03-02</td>
+<td>When is the next maintenance scheduled?</td>
+<td>Maintenance is scheduled for March 15, 2026.</td>
+<td><a href="images/water2.png" target="_blank">View Screenshot</a></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+
+<!-- TELUGU PAGE -->
+
+<div id="tePage" class="page">
+
+<h1>జల సరఫరా ప్రశ్నలు</h1>
+
+<button onclick="changeLanguage()">భాష మార్చండి</button>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Date</th>
+<th>Query</th>
+<th>Response</th>
+<th>Screenshot</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>1</td>
+<td>జాన్ డో</td>
+<td>2026-03-01</td>
+<td>ప్రస్తుతం నీటి సరఫరా స్థితి ఏమిటి?</td>
+<td>నీటి సరఫరా సాధారణంగా పని చేస్తున్నది.</td>
+<td><a href="images/water1.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>జేన్ స్మిత్</td>
+<td>2026-03-02</td>
+<td>నీటి ట్యాంకుల నిర్వహణ ఎప్పుడు జరుగుతుంది?</td>
+<td>నిర్వహణ మార్చి 15, 2026న జరుగుతుంది.</td>
+<td><a href="images/water2.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<script>
+
+function setLanguage(lang){
+
+localStorage.setItem("selectedLang", lang)
+
+document.getElementById("langPage").style.display="none"
+
+if(lang==="en"){
+document.getElementById("enPage").style.display="block"
+}
+
+if(lang==="te"){
+document.getElementById("tePage").style.display="block"
+}
+
+}
+
+
+function changeLanguage(){
+
+localStorage.removeItem("selectedLang")
+
+document.getElementById("enPage").style.display="none"
+document.getElementById("tePage").style.display="none"
+document.getElementById("langPage").style.display="block"
+
+}
+
+
+window.onload=function(){
+
+let savedLang=localStorage.getItem("selectedLang")
+
+if(savedLang){
+
+document.getElementById("langPage").style.display="none"
+document.getElementById(savedLang+"Page").style.display="block"
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
