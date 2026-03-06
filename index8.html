@@ -80,7 +80,7 @@
         }
         td { padding: 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
         
-        /* FIXED CARD VIEW */
+        /* FIXED CARD VIEW - Complete working version */
         .card-view table { width: 100% !important; min-width: auto !important; }
         .card-view thead { display: none !important; }
         .card-view tr {
@@ -89,18 +89,27 @@
             background: white; overflow: hidden; width: 100%;
         }
         .card-view td {
-            display: block !important; position: relative; padding: 0.75rem 1rem 0.75rem 3.5rem !important;
-            border: none !important; border-bottom: 1px solid #f8fbff !important;
-            text-align: left !important; font-size: 0.9rem !important; min-height: 48px;
+            display: block !important; position: relative; 
+            padding: 0.75rem 1rem !important; border: none !important;
+            border-bottom: 1px solid #f8fbff !important; min-height: 48px;
+            margin-left: 32% !important;  /* FIXED: Content beside label */
+            text-align: left !important; font-size: 0.9rem !important;
+            line-height: 1.4; word-wrap: break-word; padding-top: 0.75rem !important;
+            padding-bottom: 0.75rem !important;
         }
         .card-view td:before {
             content: attr(data-label) ":"; position: absolute; left: 0; top: 0; bottom: 0;
-            width: 32%; padding: 0 0.75rem; font-weight: 600; color: #555;
+            width: 32%; padding: 0 0.75rem; font-weight: 600; color: #555; text-align: left;
             display: flex; align-items: center; background: #f8fbff; border-right: 1px solid #e2e8ff;
             font-size: 0.85rem; z-index: 1;
         }
-        .card-view td:last-child { border-bottom: none !important; padding-bottom: 1rem !important; }
-        .card-view td:last-child:before { border-right: none; background: transparent; }
+        .card-view td:last-child { 
+            border-bottom: none !important; padding-bottom: 1rem !important; 
+        }
+        .card-view td:last-child:before { 
+            border-right: none; background: transparent; 
+        }
+
         
         /* Desktop override */
         @media (min-width: 769px) {
