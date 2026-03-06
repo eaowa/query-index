@@ -52,66 +52,64 @@
         .view-btn:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(0,119,204,0.4); }
         
         .lang-btn {
-            width: 100%; max-width: 280px; height: 56px; padding: 0 1rem; font-size: 1.1rem;
-            font-weight: 500; margin: 12px auto; background: linear-gradient(135deg, #0077cc, #005fa3);
-            color: white; border: none; border-radius: 12px; display: block;
-            box-shadow: 0 4px 12px rgba(0,119,204,0.3); cursor: pointer; transition: all 0.2s ease;
+            width: 100%; max-width: 280px; height: 56px; padding: 0 1rem;
+            font-size: 1.1rem; font-weight: 500; margin: 12px auto;
+            background: linear-gradient(135deg, #0077cc, #005fa3); color: white;
+            border: none; border-radius: 12px; display: block;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3); cursor: pointer;
         }
         .lang-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
         
         .page { display: none; }
         .active { display: block; }
         
-        /* Table wrapper with horizontal scroll */
         .table-wrapper {
             background: white; border-radius: 16px; overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         
-        /* Horizontal scroll for table view */
-        .table-wrapper .table-scroll {
-            overflow-x: auto; -webkit-overflow-scrolling: touch;
-        }
+        /* Table view: horizontal scroll */
+        .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table.table-view { width: 100%; min-width: 800px; border-collapse: collapse; }
         
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
         th {
             background: linear-gradient(135deg, #f8f9ff, #f0f4ff); padding: 1rem;
             text-align: left; font-weight: 600; color: #444; font-size: 0.85rem;
             text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8ff;
             position: sticky; top: 0; z-index: 10;
         }
-        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; }
+        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
         
-        /* Card styles */
+        /* FIXED CARD VIEW */
+        .card-view table { width: 100% !important; min-width: auto !important; }
         .card-view thead { display: none !important; }
         .card-view tr {
             display: block !important; margin-bottom: 1rem; border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8ff;
-            background: white; overflow: hidden;
+            background: white; overflow: hidden; width: 100%;
         }
         .card-view td {
-            display: block !important; text-align: left !important; position: relative;
-            padding: 0.75rem 1rem 0.75rem 3.2rem !important; border: none !important;
-            border-bottom: 1px solid #f8fbff !important; min-height: 48px;
+            display: block !important; position: relative; padding: 0.75rem 1rem 0.75rem 3.5rem !important;
+            border: none !important; border-bottom: 1px solid #f8fbff !important;
+            text-align: left !important; font-size: 0.9rem !important; min-height: 48px;
         }
-        
-        /* FIXED: Content starts BESIDE label, not below */
         .card-view td:before {
             content: attr(data-label) ":"; position: absolute; left: 0; top: 0; bottom: 0;
-            width: 30%; padding: 0 0.75rem; font-weight: 600; color: #555; text-align: left;
+            width: 32%; padding: 0 0.75rem; font-weight: 600; color: #555;
             display: flex; align-items: center; background: #f8fbff; border-right: 1px solid #e2e8ff;
             font-size: 0.85rem; z-index: 1;
         }
         .card-view td:last-child { border-bottom: none !important; padding-bottom: 1rem !important; }
         .card-view td:last-child:before { border-right: none; background: transparent; }
         
-        /* Desktop: cards revert to table */
+        /* Desktop override */
         @media (min-width: 769px) {
             .card-view tr { display: table-row !important; }
             .card-view thead { display: table-header-group !important; }
+            .card-view table { min-width: 800px !important; }
             .card-view td {
-                display: table-cell !important; text-align: left !important; padding: 1rem !important;
-                position: static !important;
+                display: table-cell !important; padding: 1rem !important;
+                position: static !important; text-align: left !important;
             }
             .card-view td:before { display: none !important; }
         }
@@ -124,20 +122,14 @@
             background: linear-gradient(135deg, #0077cc, #005fa3); border: none; font-size: 1.3rem;
             cursor: pointer; padding: 12px; border-radius: 12px; color: white;
             box-shadow: 0 4px 12px rgba(0,119,204,0.3); width: 48px; height: 48px;
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            transition: all 0.2s ease;
+            display: flex; align-items: center; justify-content: center;
         }
         .home-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
         
         .disclaimer {
             font-size: 0.9rem; color: #666; text-align: left; margin: 1rem 0 2rem 0;
             background: rgba(255,255,255,0.8); padding: 1.2rem; border-radius: 12px;
-            border-left: 4px solid #0077cc; line-height: 1.6; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        
-        @media (max-width: 768px) {
-            th, td { padding: 0.75rem 0.5rem; font-size: 0.9rem; }
-            .view-toggle { padding: 0 10px; }
+            border-left: 4px solid #0077cc; line-height: 1.6;
         }
     </style>
 </head>
@@ -165,7 +157,7 @@
             
             <div class="table-wrapper">
                 <div class="table-scroll">
-                    <table>
+                    <table class="table-view">
                         <thead>
                             <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
                         </thead>
@@ -188,7 +180,7 @@
             </div>
         </div>
 
-        <!-- TELUGU PAGE -->
+        <!-- TELUGU PAGE - same structure -->
         <div id="tePage" class="page">
             <div class="header">
                 <button class="home-btn" onclick="changeLanguage()">🏠</button>
@@ -202,7 +194,7 @@
             
             <div class="table-wrapper">
                 <div class="table-scroll">
-                    <table>
+                    <table class="table-view">
                         <thead>
                             <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
                         </thead>
@@ -230,7 +222,13 @@
         function setView(viewType, clickedBtn) {
             const tables = document.querySelectorAll('table');
             tables.forEach(table => {
-                table.className = viewType === 'card' ? 'card-view' : '';
+                if (viewType === 'card') {
+                    table.classList.add('card-view');
+                    table.classList.remove('table-view');
+                } else {
+                    table.classList.remove('card-view');
+                    table.classList.add('table-view');
+                }
             });
             
             document.querySelectorAll('.view-btn').forEach(btn => {
@@ -239,11 +237,11 @@
             
             if (viewType === 'table') {
                 document.querySelectorAll('.view-btn').forEach(btn => {
-                    if (btn.textContent.includes('Table')) btn.classList.add('table-active');
+                    if (btn.textContent.trim() === 'Table View') btn.classList.add('table-active');
                 });
             } else {
                 document.querySelectorAll('.view-btn').forEach(btn => {
-                    if (btn.textContent.includes('Card')) btn.classList.add('card-active');
+                    if (btn.textContent.trim() === 'Card View') btn.classList.add('card-active');
                 });
             }
         }
