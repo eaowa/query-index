@@ -31,97 +31,76 @@
         }
         
         .view-toggle {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            display: flex; gap: 10px; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;
         }
         
         .view-btn {
-            padding: 12px 24px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-height: 48px;
+            padding: 12px 24px; font-size: 0.95rem; font-weight: 500; border: none;
+            border-radius: 25px; cursor: pointer; transition: all 0.2s ease; min-height: 48px;
             touch-action: manipulation;
         }
         
-        .view-btn.table-active {
-            background: linear-gradient(135deg, #0077cc, #005fa3);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,119,204,0.3);
-        }
-        
-        .view-btn.card-active {
-            background: linear-gradient(135deg, #0077cc, #005fa3);
-            color: white;
+        .view-btn.table-active, .view-btn.card-active {
+            background: linear-gradient(135deg, #0077cc, #005fa3); color: white;
             box-shadow: 0 4px 12px rgba(0,119,204,0.3);
         }
         
         .view-btn:not(.table-active):not(.card-active) {
-            background: #f8fbff;
-            color: #0077cc;
-            box-shadow: 0 2px 8px rgba(0,119,204,0.2);
+            background: #f8fbff; color: #0077cc; box-shadow: 0 2px 8px rgba(0,119,204,0.2);
         }
         
-        .view-btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 8px rgba(0,119,204,0.4);
-        }
+        .view-btn:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(0,119,204,0.4); }
         
         .lang-btn {
-            width: 100%; max-width: 280px; height: 56px; padding: 0 1rem;
-            font-size: 1.1rem; font-weight: 500; margin: 12px auto;
-            background: linear-gradient(135deg, #0077cc, #005fa3); color: white;
-            border: none; border-radius: 12px; display: block;
-            box-shadow: 0 4px 12px rgba(0,119,204,0.3);
-            cursor: pointer; transition: all 0.2s ease;
+            width: 100%; max-width: 280px; height: 56px; padding: 0 1rem; font-size: 1.1rem;
+            font-weight: 500; margin: 12px auto; background: linear-gradient(135deg, #0077cc, #005fa3);
+            color: white; border: none; border-radius: 12px; display: block;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3); cursor: pointer; transition: all 0.2s ease;
         }
         .lang-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
         
         .page { display: none; }
         .active { display: block; }
         
-        /* Table styles */
+        /* Table wrapper with horizontal scroll */
         .table-wrapper {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
+            background: white; border-radius: 16px; overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         
-        table { width: 100%; border-collapse: collapse; }
+        /* Horizontal scroll for table view */
+        .table-wrapper .table-scroll {
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+        }
+        
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
         th {
-            background: linear-gradient(135deg, #f8f9ff, #f0f4ff);
-            padding: 1rem; text-align: left; font-weight: 600; color: #444;
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;
-            border-bottom: 2px solid #e2e8ff;
+            background: linear-gradient(135deg, #f8f9ff, #f0f4ff); padding: 1rem;
+            text-align: left; font-weight: 600; color: #444; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8ff;
+            position: sticky; top: 0; z-index: 10;
         }
         td { padding: 1rem; border-bottom: 1px solid #f1f5f9; }
         
-        /* Card styles - ONLY when card-view class active */
+        /* Card styles */
+        .card-view thead { display: none !important; }
         .card-view tr {
             display: block !important; margin-bottom: 1rem; border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e2e8ff;
             background: white; overflow: hidden;
         }
-        
-        .card-view thead { display: none !important; }
         .card-view td {
-            display: block !important; text-align: right; position: relative;
-            padding: 0.75rem 1rem 0.75rem 3rem !important; border: none !important;
+            display: block !important; text-align: left !important; position: relative;
+            padding: 0.75rem 1rem 0.75rem 3.2rem !important; border: none !important;
             border-bottom: 1px solid #f8fbff !important; min-height: 48px;
         }
         
+        /* FIXED: Content starts BESIDE label, not below */
         .card-view td:before {
             content: attr(data-label) ":"; position: absolute; left: 0; top: 0; bottom: 0;
             width: 30%; padding: 0 0.75rem; font-weight: 600; color: #555; text-align: left;
             display: flex; align-items: center; background: #f8fbff; border-right: 1px solid #e2e8ff;
-            font-size: 0.85rem;
+            font-size: 0.85rem; z-index: 1;
         }
         .card-view td:last-child { border-bottom: none !important; padding-bottom: 1rem !important; }
         .card-view td:last-child:before { border-right: none; background: transparent; }
@@ -131,8 +110,8 @@
             .card-view tr { display: table-row !important; }
             .card-view thead { display: table-header-group !important; }
             .card-view td {
-                display: table-cell !important; text-align: left !important;
-                padding: 1rem !important; position: static !important;
+                display: table-cell !important; text-align: left !important; padding: 1rem !important;
+                position: static !important;
             }
             .card-view td:before { display: none !important; }
         }
@@ -142,11 +121,11 @@
         
         .header { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; }
         .home-btn {
-            background: linear-gradient(135deg, #0077cc, #005fa3); border: none;
-            font-size: 1.3rem; cursor: pointer; padding: 12px; border-radius: 12px;
-            color: white; box-shadow: 0 4px 12px rgba(0,119,204,0.3);
-            width: 48px; height: 48px; display: flex; align-items: center;
-            justify-content: center; flex-shrink: 0; transition: all 0.2s ease;
+            background: linear-gradient(135deg, #0077cc, #005fa3); border: none; font-size: 1.3rem;
+            cursor: pointer; padding: 12px; border-radius: 12px; color: white;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3); width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            transition: all 0.2s ease;
         }
         .home-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
         
@@ -177,9 +156,7 @@
                 <button class="home-btn" onclick="changeLanguage()">🏠</button>
                 <h1>Water Supply Queries</h1>
             </div>
-            <p class="disclaimer">
-                This is a member‑maintained index of queries posted in the official WhatsApp group...
-            </p>
+            <p class="disclaimer">This is a member‑maintained index of queries posted in the official WhatsApp group...</p>
             
             <div class="view-toggle">
                 <button class="view-btn table-active" onclick="setView('table', this)">Table View</button>
@@ -187,29 +164,31 @@
             </div>
             
             <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="ID">1</td><td data-label="Name">John Doe</td><td data-label="Date">2026-03-01</td>
-                            <td data-label="Query">What is the current status of the water supply?</td>
-                            <td data-label="Response">The water supply is functioning normally.</td>
-                            <td data-label="Screenshot"><a href="images/water1.png" target="_blank">View Screenshot</a></td>
-                        </tr>
-                        <tr>
-                            <td data-label="ID">2</td><td data-label="Name">Jane Smith</td><td data-label="Date">2026-03-02</td>
-                            <td data-label="Query">When is the next maintenance scheduled?</td>
-                            <td data-label="Response">Maintenance is scheduled for March 15, 2026.</td>
-                            <td data-label="Screenshot"><a href="images/water2.png" target="_blank">View Screenshot</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="ID">1</td><td data-label="Name">John Doe</td><td data-label="Date">2026-03-01</td>
+                                <td data-label="Query">What is the current status of the water supply?</td>
+                                <td data-label="Response">The water supply is functioning normally.</td>
+                                <td data-label="Screenshot"><a href="images/water1.png" target="_blank">View Screenshot</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="ID">2</td><td data-label="Name">Jane Smith</td><td data-label="Date">2026-03-02</td>
+                                <td data-label="Query">When is the next maintenance scheduled?</td>
+                                <td data-label="Response">Maintenance is scheduled for March 15, 2026.</td>
+                                <td data-label="Screenshot"><a href="images/water2.png" target="_blank">View Screenshot</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <!-- TELUGU PAGE (same structure) -->
+        <!-- TELUGU PAGE -->
         <div id="tePage" class="page">
             <div class="header">
                 <button class="home-btn" onclick="changeLanguage()">🏠</button>
@@ -222,50 +201,50 @@
             </div>
             
             <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="ID">1</td><td data-label="Name">జాన్ డో</td><td data-label="Date">2026-03-01</td>
-                            <td data-label="Query">ప్రస్తుతం నీటి సరఫరా స్థితి ఏమిటి?</td>
-                            <td data-label="Response">నీటి సరఫరా సాధారణంగా పని చేస్తున్నది.</td>
-                            <td data-label="Screenshot"><a href="images/water1.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
-                        </tr>
-                        <tr>
-                            <td data-label="ID">2</td><td data-label="Name">జేన్ స్మిత్</td><td data-label="Date">2026-03-02</td>
-                            <td data-label="Query">నీటి ట్యాంకుల నిర్వహణ ఎప్పుడు జరుగుతుంది?</td>
-                            <td data-label="Response">నిర్వహణ మార్చి 15, 2026న జరుగుతుంది.</td>
-                            <td data-label="Screenshot"><a href="images/water2.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="ID">1</td><td data-label="Name">జాన్ డో</td><td data-label="Date">2026-03-01</td>
+                                <td data-label="Query">ప్రస్తుతం నీటి సరఫరా స్థితి ఏమిటి?</td>
+                                <td data-label="Response">నీటి సరఫరా సాధారణంగా పని చేస్తున్నది.</td>
+                                <td data-label="Screenshot"><a href="images/water1.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
+                            </tr>
+                            <tr>
+                                <td data-label="ID">2</td><td data-label="Name">జేన్ స్మిత్</td><td data-label="Date">2026-03-02</td>
+                                <td data-label="Query">నీటి ట్యాంకుల నిర్వహణ ఎప్పుడు జరుగుతుంది?</td>
+                                <td data-label="Response">నిర్వహణ మార్చి 15, 2026న జరుగుతుంది.</td>
+                                <td data-label="Screenshot"><a href="images/water2.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         function setView(viewType, clickedBtn) {
-            // Update ALL tables and buttons to new view
             const tables = document.querySelectorAll('table');
-            const allTableBtns = document.querySelectorAll('.view-btn.table-active');
-            const allCardBtns = document.querySelectorAll('.view-btn.card-active');
-            
             tables.forEach(table => {
                 table.className = viewType === 'card' ? 'card-view' : '';
             });
             
-            // Reset all buttons
             document.querySelectorAll('.view-btn').forEach(btn => {
                 btn.classList.remove('table-active', 'card-active');
             });
             
-            // Activate correct button on ALL pages
             if (viewType === 'table') {
-                allTableBtns.forEach(btn => btn.classList.add('table-active'));
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    if (btn.textContent.includes('Table')) btn.classList.add('table-active');
+                });
             } else {
-                allCardBtns.forEach(btn => btn.classList.add('card-active'));
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    if (btn.textContent.includes('Card')) btn.classList.add('card-active');
+                });
             }
         }
         
