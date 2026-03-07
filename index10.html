@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2YLE3XT8T"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-Y2YLE3XT8T');
+    </script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Supply Queries</title>
+    <style>
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, #f5f9ff 0%, #e8f4fd 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .container { max-width: 1000px; margin: auto; }
+        
+        h1 {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            font-weight: 600;
+            background: linear-gradient(135deg, #0077cc, #005fa3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 1.5rem 0;
+            text-align: center;
+        }
+        
+        .view-toggle {
+            display: flex; gap: 10px; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        
+        .view-btn {
+            padding: 12px 24px; font-size: 0.95rem; font-weight: 500; border: none;
+            border-radius: 25px; cursor: pointer; transition: all 0.2s ease; min-height: 48px;
+            touch-action: manipulation;
+        }
+        
+        .view-btn.table-active, .view-btn.card-active {
+            background: linear-gradient(135deg, #0077cc, #005fa3); color: white;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3);
+        }
+        
+        .view-btn:not(.table-active):not(.card-active) {
+            background: #f8fbff; color: #0077cc; box-shadow: 0 2px 8px rgba(0,119,204,0.2);
+        }
+        
+        .view-btn:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(0,119,204,0.4); }
+        
+        .lang-btn {
+            width: 100%; max-width: 280px; height: 56px; padding: 0 1rem;
+            font-size: 1.1rem; font-weight: 500; margin: 12px auto;
+            background: linear-gradient(135deg, #0077cc, #005fa3); color: white;
+            border: none; border-radius: 12px; display: block;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3); cursor: pointer;
+        }
+        .lang-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
+        
+        .page { display: none; }
+        .active { display: block; }
+        
+        .table-wrapper {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        
+        /* TABLE VIEW */
+        .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .view-container { display: none; }
+        .view-container.active { display: block; }
+        
+        table.table-view { width: 100%; min-width: 800px; border-collapse: collapse; }
+        th {
+            background: linear-gradient(135deg, #f8f9ff, #f0f4ff); padding: 1rem;
+            text-align: left; font-weight: 600; color: #444; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e2e8ff;
+            position: sticky; top: 0; z-index: 10;
+        }
+        td { padding: 1rem; border-bottom: 1px solid #f1f5f9; font-size: 0.9rem; }
+        
+        /* CARD VIEW - Pure Flexbox (No Table Pollution) */
+        .cards-container {
+            display: flex; flex-direction: column; gap: 1rem; padding: 1rem 0;
+        }
+        .card {
+            background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden; display: flex; flex-direction: column; gap: 0;
+            border: 1px solid #e2e8ff;
+        }
+        .card > div:nth-child(odd) { 
+            font-weight: 600; color: #555; padding: 0.75rem 1rem; 
+            background: #f8fbff; border-right: 1px solid #e2e8ff;
+        }
+        .card > div:nth-child(even) { 
+            padding: 0.75rem 1rem; 
+        }
+        
+        /* Desktop: Cards become 2-column grid */
+        @media (min-width: 769px) {
+            .cards-container { 
+                flex-direction: row; flex-wrap: wrap; gap: 1rem; 
+                padding: 1rem;
+            }
+            .card { 
+                flex: 1 1 calc(50% - 0.5rem); max-width: calc(50% - 0.5rem); 
+            }
+            .card > div:nth-child(odd) { border-right: none; }
+        }
+        
+        a { color: #0077cc; text-decoration: none; font-weight: 500; }
+        a:active { color: #005fa3; }
+        
+        .header { display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem; }
+        .home-btn {
+            background: linear-gradient(135deg, #0077cc, #005fa3); border: none; font-size: 1.3rem;
+            cursor: pointer; padding: 12px; border-radius: 12px; color: white;
+            box-shadow: 0 4px 12px rgba(0,119,204,0.3); width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .home-btn:active { box-shadow: 0 2px 8px rgba(0,119,204,0.4); transform: translateY(1px); }
+        
+        .disclaimer {
+            font-size: 0.9rem; color: #666; text-align: left; margin: 1rem 0 2rem 0;
+            background: rgba(255,255,255,0.8); padding: 1.2rem; border-radius: 12px;
+            border-left: 4px solid #0077cc; line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- LANGUAGE SELECTION -->
+        <div id="langPage">
+            <h1>Select Language / భాషను ఎంచుకోండి</h1>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            <button class="lang-btn" onclick="setLanguage('te')">తెలుగు</button>
+        </div>
+
+        <!-- ENGLISH PAGE -->
+        <div id="enPage" class="page">
+            <div class="header">
+                <button class="home-btn" onclick="changeLanguage()">🏠</button>
+                <h1>Water Supply Queries</h1>
+            </div>
+            <p class="disclaimer">This is a member‑maintained index of queries posted in the official WhatsApp group...</p>
+            
+            <div class="view-toggle">
+                <button class="view-btn table-active" onclick="setView('table', this)">Table View</button>
+                <button class="view-btn" onclick="setView('card', this)">Card View</button>
+            </div>
+            
+            <div class="table-wrapper">
+                <!-- TABLE VIEW -->
+                <div id="tableViewEn" class="view-container active">
+                    <div class="table-scroll">
+                        <table class="table-view">
+                            <thead>
+                                <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td><td>John Doe</td><td>2026-03-01</td>
+                                    <td>What is the current status of the water supply?</td>
+                                    <td>The water supply is functioning normally.</td>
+                                    <td><a href="images/water1.png" target="_blank">View Screenshot</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td><td>Jane Smith</td><td>2026-03-02</td>
+                                    <td>When is the next maintenance scheduled?</td>
+                                    <td>Maintenance is scheduled for March 15, 2026.</td>
+                                    <td><a href="images/water2.png" target="_blank">View Screenshot</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- CARD VIEW -->
+                <div id="cardViewEn" class="view-container">
+                    <div class="cards-container">
+                        <div class="card">
+                            <div>ID</div><div>1</div>
+                            <div>Name</div><div>John Doe</div>
+                            <div>Date</div><div>2026-03-01</div>
+                            <div>Query</div><div>What is the current status of the water supply?</div>
+                            <div>Response</div><div>The water supply is functioning normally.</div>
+                            <div>Screenshot</div><div><a href="images/water1.png" target="_blank">View Screenshot</a></div>
+                        </div>
+                        <div class="card">
+                            <div>ID</div><div>2</div>
+                            <div>Name</div><div>Jane Smith</div>
+                            <div>Date</div><div>2026-03-02</div>
+                            <div>Query</div><div>When is the next maintenance scheduled?</div>
+                            <div>Response</div><div>Maintenance is scheduled for March 15, 2026.</div>
+                            <div>Screenshot</div><div><a href="images/water2.png" target="_blank">View Screenshot</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELUGU PAGE -->
+        <div id="tePage" class="page">
+            <div class="header">
+                <button class="home-btn" onclick="changeLanguage()">🏠</button>
+                <h1>Water Supply Queries</h1>
+            </div>
+            
+            <div class="view-toggle">
+                <button class="view-btn table-active" onclick="setView('table', this)">Table View</button>
+                <button class="view-btn" onclick="setView('card', this)">Card View</button>
+            </div>
+            
+            <div class="table-wrapper">
+                <!-- TABLE VIEW -->
+                <div id="tableViewTe" class="view-container active">
+                    <div class="table-scroll">
+                        <table class="table-view">
+                            <thead>
+                                <tr><th>ID</th><th>Name</th><th>Date</th><th>Query</th><th>Response</th><th>Screenshot</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td><td>జాన్ డో</td><td>2026-03-01</td>
+                                    <td>ప్రస్తుతం నీటి సరఫరా స్థితి ఏమిటి?</td>
+                                    <td>నీటి సరఫరా సాధారణంగా పని చేస్తున్నది.</td>
+                                    <td><a href="images/water1.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td><td>జేన్ స్మిత్</td><td>2026-03-02</td>
+                                    <td>నీటి ట్యాంకుల నిర్వహణ ఎప్పుడు జరుగుతుంది?</td>
+                                    <td>నిర్వహణ మార్చి 15, 2026న జరుగుతుంది.</td>
+                                    <td><a href="images/water2.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- CARD VIEW -->
+                <div id="cardViewTe" class="view-container">
+                    <div class="cards-container">
+                        <div class="card">
+                            <div>ID</div><div>1</div>
+                            <div>Name</div><div>జాన్ డో</div>
+                            <div>Date</div><div>2026-03-01</div>
+                            <div>Query</div><div>ప్రస్తుతం నీటి సరఫరా స్థితి ఏమిటి?</div>
+                            <div>Response</div><div>నీటి సరఫరా సాధారణంగా పని చేస్తున్నది.</div>
+                            <div>Screenshot</div><div><a href="images/water1.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></div>
+                        </div>
+                        <div class="card">
+                            <div>ID</div><div>2</div>
+                            <div>Name</div><div>జేన్ స్మిత్</div>
+                            <div>Date</div><div>2026-03-02</div>
+                            <div>Query</div><div>నీటి ట్యాంకుల నిర్వహణ ఎప్పుడు జరుగుతుంది?</div>
+                            <div>Response</div><div>నిర్వహణ మార్చి 15, 2026న జరుగుతుంది.</div>
+                            <div>Screenshot</div><div><a href="images/water2.png" target="_blank">స్క్రీన్‌షాట్ చూడండి</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+function setView(viewType, clickedBtn) {
+    if (document.getElementById('enPage').style.display !== 'none') {
+        document.getElementById('tableViewEn').classList.toggle('active', viewType === 'table');
+        document.getElementById('cardViewEn').classList.toggle('active', viewType === 'card');
+    } else if (document.getElementById('tePage').style.display !== 'none') {
+        document.getElementById('tableViewTe').classList.toggle('active', viewType === 'table');
+        document.getElementById('cardViewTe').classList.toggle('active', viewType === 'card');
+    }
+    
+    // Track Table/Card view
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'view_switch', {
+            'view_type': viewType === 'table' ? 'Table View' : 'Card View'
+        });
+    }
+    
+    // Button styling
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('table-active', 'card-active');
+    });
+    if (viewType === 'table') {
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            if (btn.textContent.trim() === 'Table View') btn.classList.add('table-active');
+        });
+    } else {
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            if (btn.textContent.trim() === 'Card View') btn.classList.add('card-active');
+        });
+    }
+}
+
+function setLanguage(lang) {
+    localStorage.setItem("selectedLang", lang);
+    document.getElementById("langPage").style.display = "none";
+    document.getElementById(lang + "Page").style.display = "block";
+    
+    // Track Language choice
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'language_switch', {
+            'language': lang === 'en' ? 'English' : 'Telugu'
+        });
+    }
+    
+    document.getElementById('tableView' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.add('active');
+    document.getElementById('cardView' + lang.charAt(0).toUpperCase() + lang.slice(1)).classList.remove('active');
+}
+
+function changeLanguage() {
+    localStorage.removeItem("selectedLang");
+    document.getElementById("enPage").style.display = "none";
+    document.getElementById("tePage").style.display = "none";
+    document.getElementById("langPage").style.display = "block";
+    
+    // Track home button
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'home_clicked', { 'action': 'language_change' });
+    }
+}
+
+window.onload = function() {
+    let savedLang = localStorage.getItem("selectedLang");
+    if (savedLang) {
+        document.getElementById("langPage").style.display = "none";
+        document.getElementById(savedLang + "Page").style.display = "block";
+        document.getElementById('tableView' + savedLang.charAt(0).toUpperCase() + savedLang.slice(1)).classList.add('active');
+    }
+}
+
+// Track screenshot clicks
+document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A' && e.target.href.includes('water')) {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'screenshot_viewed', { 'image': e.target.href.split('/').pop() });
+        }
+    }
+});
+
+// Track landscape mode
+window.addEventListener('resize', function() {
+    if (window.innerHeight < window.innerWidth && typeof gtag !== 'undefined') {
+        gtag('event', 'orientation_change', { 'orientation': 'landscape' });
+    }
+});
+</script>
+
+</body>
+</html>
