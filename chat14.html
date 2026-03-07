@@ -81,7 +81,14 @@ This is a member-maintained index of queries posted in the Apartment Owners What
 <button class="view-btn" onclick="setView('card',this)">Card View</button>
 </div>
 
-<p class="update-note">Last updated: March 7, 2026</p>
+<p class="update-note">Index last updated: <span id="lastUpdated"></span></p>
+
+<script>
+  // Use the browser's lastModified property for the HTML file
+  const lastMod = new Date(document.lastModified);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('lastUpdated').textContent = lastMod.toLocaleDateString('en-US', options);
+</script>
   
 <p class="column-key">
 <sup>*</sup> Date refers to the original WhatsApp post date so members can locate the message in their WhatsApp history.
