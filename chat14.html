@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apartment Queries</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:1.5rem 1rem;background:linear-gradient(135deg,#f5f9ff 0%,#e8f4fd 100%);min-height:100vh;color:#333;line-height:1.5}
+.container{max-width:1000px;margin:auto}
+h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;background:linear-gradient(135deg,#0077cc,#005fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 1rem 0;text-align:center}
+.view-toggle{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.view-btn{padding:12px 24px;font-size:.95rem;font-weight:500;border:none;border-radius:25px;cursor:pointer;transition:.2s;min-height:48px}
+.view-btn.table-active,.view-btn.card-active{background:linear-gradient(135deg,#0077cc,#005fa3);color:#fff;box-shadow:0 4px 12px rgba(0,119,204,.3)}
+.view-btn:not(.table-active):not(.card-active){background:#f8fbff;color:#0077cc;box-shadow:0 2px 8px rgba(0,119,204,.2)}
+.table-wrapper{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.table-scroll{overflow-x:auto}
+.view-container{display:none}
+.view-container.active{display:block}
+table{width:100%;min-width:800px;border-collapse:collapse;table-layout:fixed;}
+th{padding:1rem 1.2rem;text-align:left;font-weight:600;color:#444;font-size:.85rem;text-transform:uppercase;border-bottom:2px solid #e2e8ff;position:sticky;top:0}
+td{padding:1rem 1.2rem;border-bottom:1px solid #f1f5f9;font-size:.9rem;vertical-align:top;word-wrap:break-word;white-space: pre-wrap;}
+.cards-container{display:flex;flex-direction:column;gap:1rem;padding:1rem}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);overflow:hidden;border:1px solid #e2e8ff}
+.card>div:nth-child(odd){font-weight:600;color:#555;padding:.75rem 1rem;background:#f8fbff}
+.card>div:nth-child(even){padding:.75rem 1rem;white-space: pre-wrap;}
+@media(min-width:769px){.cards-container{flex-direction:row;flex-wrap:wrap}.card{flex:1 1 calc(50% - .5rem)}}
+.disclaimer{font-size:.9rem;color:#666;margin:1rem 0 2rem 0;background:rgba(255,255,255,.8);padding:1.2rem;border-radius:12px;border-left:4px solid #0077cc}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Apartment Queries</h1>
+
+<p class="disclaimer">
+This is a member-maintained index of queries posted in the official WhatsApp group.
+Messages are reproduced verbatim for transparency. Members may share clarifications if needed.
+</p>
+
+<div class="view-toggle">
+<button class="view-btn table-active" onclick="setView('table',this)">Table View</button>
+<button class="view-btn" onclick="setView('card',this)">Card View</button>
+</div>
+
+<div class="table-wrapper">
+
+<!-- TABLE VIEW -->
+<div id="tableView" class="view-container active">
+<div class="table-scroll">
+
+<table>
+<thead>
+<tr>
+<th style="width:8%;">Category</th>
+<th style="width:8%;">Date of Request</th>
+<th style="width:8%;">Request Addressed To</th>
+<th style="width:30%;">Context</th>
+<th style="width:30%;">Query</th>
+<th style="width:16%;">Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cost Sharing</td>
+<td>2026-03-07</td>
+<td>Secretary Subba Rao Garu, Executive Committee</td>
+<td>
+In Secretary Subba Rao garu’s earlier message, he mentioned “60000 * 30 = 18 lakhs”. It appears that all 30 flats were charged the same special levy amount, regardless of flat size. Since flat-size details have not yet been shared, the following are floor-level estimates to understand the special levies charged in 2019 and 2024:
+
+At Rs. 1.5 lakh per flat:
+
+Lower floors (4 floors, 7 flats each): ~ Rs. 10.5 lakh per floor
+
+Penthouse floor (2 flats): ~ Rs. 3 lakh
+
+This represents a difference of ~ Rs. 7.5 lakh, suggesting a potential imbalance in cost sharing between lower and top floors, similar to what has been observed for monthly maintenance fees.
+</td>
+<td>
+1. Secretary Subba Rao garu: As custodian of records, please share resolutions and voting records showing that members approved this special levy allocation.
+
+2. Executive Committee members: Please confirm whether my calculations are roughly correct, and clarify the rationale for charging an equal-per-flat amount instead of a proportional floor-area method.
+
+3. Regarding the monthly fee cross-subsidy, Secretary Subba Rao garu had mentioned: “These matters and maintenance per flats were decided/agreed in 1997 and the existing practice is in vogue since then.” Were special levies also allocated the same way since 1997? If the 2019–2024 difference is ~ Rs. 7.5 lakh, please indicate an estimate for the difference from 1997 onwards.
+
+4. I am happy to be corrected if any of the above figures or assumptions are inaccurate.
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<!-- CARD VIEW -->
+<div id="cardView" class="view-container">
+<div class="cards-container" id="cardsContainer"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* TABLE / CARD VIEW */
+function setView(view,btn){
+document.getElementById('tableView').classList.toggle('active',view==='table')
+document.getElementById('cardView').classList.toggle('active',view==='card')
+document.querySelectorAll('.view-btn').forEach(b=>{b.classList.remove('table-active','card-active')})
+btn.classList.add(view==='table'?'table-active':'card-active')
+}
+
+/* CARD GENERATOR */
+function generateCardsFromTable() {
+  const table = document.querySelector('#tableView table');
+  const cardsContainer = document.getElementById('cardsContainer');
+  if(!table || !cardsContainer) return;
+  cardsContainer.innerHTML='';
+  const headers = Array.from(table.querySelectorAll('thead th')).map(th=>th.textContent.trim());
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(row=>{
+    const cells = row.querySelectorAll('td');
+    const card=document.createElement('div');
+    card.className='card';
+    headers.forEach((header,index)=>{
+      const headerDiv=document.createElement('div');
+      headerDiv.textContent=header;
+      const valueDiv=document.createElement('div');
+      // Replace line breaks with <br> to preserve formatting
+      valueDiv.innerHTML = cells[index].textContent.replace(/\n/g, "<br>");
+      card.appendChild(headerDiv);
+      card.appendChild(valueDiv);
+    });
+    cardsContainer.appendChild(card);
+  });
+}
+
+window.addEventListener('DOMContentLoaded',generateCardsFromTable);
+</script>
+</body>
+</html>
