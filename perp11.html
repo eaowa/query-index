@@ -10,12 +10,13 @@
     <script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
-            pageLanguage: 'en', 
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-            gaId: 'G-XXXXXXXXX'  // Replace with your GA4 Measurement ID if desired
+            pageLanguage: 'en',
+            includedLanguages: 'en,te',  // ← Only English + Telugu
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
         }, 'google_translate_element');
     }
     </script>
+
 
     <style>
         * { box-sizing: border-box; }
