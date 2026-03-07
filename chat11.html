@@ -272,11 +272,15 @@ gtag('event','view_switch',{view_type:view})
 
 /* GOOGLE TRANSLATE */
 
-function googleTranslateElementInit(){
-new google.translate.TranslateElement(
-{pageLanguage:'en',includedLanguages:'te'},
-'google_translate_element'
-)
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {
+      pageLanguage: 'en',
+      includedLanguages: 'en,te',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    },
+    'google_translate_element'
+  );
 }
 
 /* SCREENSHOT TRACKING */
