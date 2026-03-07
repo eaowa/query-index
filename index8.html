@@ -91,7 +91,7 @@
         .card-view td {
             display: flex !important; gap: 0.5rem; align-items: flex-start !important;
             padding: 0.75rem 1rem !important; border: none !important;
-            border-bottom: 1px solid #f8fbff !important; min-height: 48px;
+            border-bottom: none !important;  /* No internal gaps */
             font-size: 0.9rem !important; line-height: 1.4;
         }
         .card-view td:before {
@@ -119,7 +119,18 @@
             }
             .card-view td:before { display: none !important; }
         }
-        
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            .card-view .table-scroll { 
+                overflow: visible !important; 
+                width: 100vw !important;
+            }
+            .card-view .table-wrapper { 
+                margin: 0 -1rem !important; 
+                max-width: none !important;
+            }
+        }
+
         a { color: #0077cc; text-decoration: none; font-weight: 500; }
         a:active { color: #005fa3; }
         
