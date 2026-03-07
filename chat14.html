@@ -22,6 +22,27 @@ th:nth-child(3) {
 body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:1.5rem 1rem;background:linear-gradient(135deg,#f5f9ff 0%,#e8f4fd 100%);min-height:100vh;color:#333;line-height:1.5}
 .container{max-width:1000px;margin:auto}
 h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;background:linear-gradient(135deg,#0077cc,#005fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 1rem 0;text-align:center}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+}
 .view-toggle{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
 .view-btn{padding:12px 24px;font-size:.95rem;font-weight:500;border:none;border-radius:25px;cursor:pointer;transition:.2s;min-height:48px}
 .view-btn.table-active,.view-btn.card-active{background:linear-gradient(135deg,#0077cc,#005fa3);color:#fff;box-shadow:0 4px 12px rgba(0,119,204,.3)}
@@ -68,7 +89,7 @@ margin:0 0 10px 0;
 <body>
 <div class="container">
 <h1>Apartment Queries</h1>
-
+<p class="subtitle">Member-maintained index of WhatsApp queries</p>
 <!-- Google Translate -->
 <div id="google_translate_element"></div>
 
