@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apartment Queries</title>
 <style>
+
+/* Narrow columns (Category, Date, Request Addressed To) */
+td:nth-child(1),
+th:nth-child(1),
+td:nth-child(2),
+th:nth-child(2),
+td:nth-child(3),
+th:nth-child(3) {
+  font-size: 0.6rem;       /* slightly smaller than normal 0.9rem */
+  hyphens: auto;           /* enable hyphenation if needed */
+  word-wrap: break-word;   /* wrap long words */
+}
+  
 *{box-sizing:border-box}
 body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:1.5rem 1rem;background:linear-gradient(135deg,#f5f9ff 0%,#e8f4fd 100%);min-height:100vh;color:#333;line-height:1.5}
 .container{max-width:1000px;margin:auto}
