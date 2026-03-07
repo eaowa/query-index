@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apartment Queries</title>
+<style>
+
+/* Narrow columns (Category, Date, Request Addressed To) */
+td:nth-child(1),
+th:nth-child(1),
+td:nth-child(2),
+th:nth-child(2),
+td:nth-child(3),
+th:nth-child(3) {
+  font-size: 0.8rem;       /* slightly smaller than normal 0.9rem */
+  hyphens: auto;           /* enable hyphenation if needed */
+  word-wrap: break-word;   /* wrap long words */
+}
+  
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:1.5rem 1rem;background:linear-gradient(135deg,#f5f9ff 0%,#e8f4fd 100%);min-height:100vh;color:#333;line-height:1.5}
+.container{max-width:1000px;margin:auto}
+h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;background:linear-gradient(135deg,#0077cc,#005fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 0.2rem 0;text-align:center}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+}
+.view-toggle{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.view-btn{padding:12px 24px;font-size:.95rem;font-weight:500;border:none;border-radius:25px;cursor:pointer;transition:.2s;min-height:48px}
+.view-btn.table-active,.view-btn.card-active{background:linear-gradient(135deg,#0077cc,#005fa3);color:#fff;box-shadow:0 4px 12px rgba(0,119,204,.3)}
+.view-btn:not(.table-active):not(.card-active){background:#f8fbff;color:#0077cc;box-shadow:0 2px 8px rgba(0,119,204,.2)}
+.table-wrapper{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.1)}
+.table-scroll{overflow-x:auto}
+.view-container{display:none}
+.view-container.active{display:block}
+table{width:100%;min-width:800px;border-collapse:collapse;table-layout:fixed;}
+th{padding:1rem 1.2rem;text-align:left;font-weight:600;color:#444;font-size:.85rem;text-transform:uppercase;border-bottom:2px solid #e2e8ff;position:sticky;top:0}
+td{padding:1rem 1.2rem;border-bottom:1px solid #f1f5f9;font-size:.9rem;vertical-align:top;word-wrap:break-word;white-space: pre-wrap;}
+.cards-container{display:flex;flex-direction:column;gap:1rem;padding:1rem}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);overflow:hidden;border:1px solid #e2e8ff}
+.card>div:nth-child(odd){font-weight:600;color:#555;padding:.75rem 1rem;background:#f8fbff}
+.card>div:nth-child(even){padding:.75rem 1rem;white-space: pre-wrap;}
+@media(min-width:769px){.cards-container{flex-direction:row;flex-wrap:wrap}.card{flex:1 1 calc(50% - .5rem)}}
+.disclaimer{font-size:.8rem;color:#666;margin:1rem 0 2rem 0;background:rgba(255,255,255,.8);padding:1.2rem;border-radius:12px;border-left:4px solid #0077cc}
+#google_translate_element{margin-bottom:1rem;text-align:center;}
+.update-note{
+font-size:0.8rem;
+color:#777;
+margin:6px 0 2px 0;
+}
+
+.column-key{
+font-size:0.8rem;
+color:#777;
+margin:0 0 10px 0;
+}
+</style>
+
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2YLE3XT8T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y2YLE3XT8T');
+</script>
+
+</head>
+
+<body>
+<div class="container">
+<h1>Embassy Apartments</h1>
+<p class="subtitle">Member-maintained index of owners' WhatsApp queries</p>
+<!-- Google Translate -->
+<div id="google_translate_element"></div>
+
+<p class="disclaimer">
+This is a member-maintained index of queries posted in the Apartment Owners WhatsApp group. It is not an official record of the association and does NOT replace the statutory records that the Association Secretary and the Executive Committee are required to maintain. This index is a voluntary effort by the compiler, who is not an office-bearer of the association. Its purpose is simply to organize queries and discussions so that members can refer to them easily. Suggestions or corrections to improve the accuracy of this index are welcome.
+</p>
+
+<div class="view-toggle">
+<button class="view-btn table-active" onclick="setView('table',this)">Table View</button>
+<button class="view-btn" onclick="setView('card',this)">Card View</button>
+</div>
+
+<p class="update-note">Index last updated: <span id="lastUpdated"></span></p>
+
+<script>
+  // Use the browser's lastModified property for the HTML file
+  const lastMod = new Date(document.lastModified);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('lastUpdated').textContent = lastMod.toLocaleDateString('en-US', options);
+</script>
+  
+<p class="column-key">
+<sup>*</sup> Date refers to the original WhatsApp post date so members can locate the message in their WhatsApp history.
+</p>
+<div class="table-wrapper">
+
+<!-- TABLE VIEW -->
+<div id="tableView" class="view-container active">
+<div class="table-scroll">
+
+<table>
+<thead>
+<tr>
+<th style="width:8%;">Sub.</th>
+<th style="width:8%;">Date<sup style="font-size:0.7em;">*</sup></th>
+<th style="width:8%;">To</th>
+<th style="width:30%;">Context</th>
+<th style="width:30%;">Query</th>
+<th style="width:16%;">Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monthly Fee / Special Levy Formula</td>
+<td>2026-03-07</td>
+<td>Secretary Subba Rao Garu, Head Board</td>
+<td>
+In Secretary Subba Rao garu’s Feb 18th message, he says “60000 *30 18 lakhs”. It appears that all 30 flats were charged the same special levy amount, likely also in 2019.
+
+Using the same method for the combined 2019 and 2024 levies (~ Rs. 1.5 lakh per flat):
+
+Equal-per-flat levy: 1.5 lakh * 30 = 45 lakh
+If an area-based levy had been applied: 1.5 lakh * 35 = 52.5 lakh
+
+Since flat-size details have not yet been shared, we can only make floor-level estimates to understand the levy distribution:
+
+Lower floors (7 flats × 1.5 lakh) ~ Rs. 10.5 lakh per floor
+Penthouse floor (2 flats × 1.5 lakh) ~ Rs. 3 lakh
+
+Either way, based on the information currently available, these estimates indicate a potential imbalance in cost sharing between the 28 lower-floor flats and the 2 penthouses of ~ Rs. 7.5 lakh.
+</td>
+<td>
+Secretary Subba Rao garu: As custodian of records, please provide the resolutions and voting records that document the approval of this special levy allocation formula.
+  
+Any Head Board members: Please confirm whether these calculations are roughly correct, and clarify the rationale for charging an equal-per-flat amount instead of a proportional floor-area method.
+
+Happy to be corrected if any of the above figures or assumptions are inaccurate.
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<!-- CARD VIEW -->
+<div id="cardView" class="view-container">
+<div class="cards-container" id="cardsContainer"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* TABLE / CARD VIEW */
+function setView(view,btn){
+document.getElementById('tableView').classList.toggle('active',view==='table')
+document.getElementById('cardView').classList.toggle('active',view==='card')
+document.querySelectorAll('.view-btn').forEach(b=>{b.classList.remove('table-active','card-active')})
+btn.classList.add(view==='table'?'table-active':'card-active')
+}
+
+/* CARD GENERATOR */
+function generateCardsFromTable() {
+  const table = document.querySelector('#tableView table');
+  const cardsContainer = document.getElementById('cardsContainer');
+  if(!table || !cardsContainer) return;
+  cardsContainer.innerHTML='';
+  const headers = Array.from(table.querySelectorAll('thead th')).map(th=>th.textContent.trim());
+  const rows = table.querySelectorAll('tbody tr');
+  rows.forEach(row=>{
+    const cells = row.querySelectorAll('td');
+    const card=document.createElement('div');
+    card.className='card';
+    headers.forEach((header,index)=>{
+      const headerDiv=document.createElement('div');
+      headerDiv.textContent=header;
+      const valueDiv=document.createElement('div');
+      // preserve line breaks
+      valueDiv.innerHTML = cells[index].textContent.replace(/\n/g, "<br>");
+      card.appendChild(headerDiv);
+      card.appendChild(valueDiv);
+    });
+    cardsContainer.appendChild(card);
+  });
+}
+
+window.addEventListener('DOMContentLoaded',generateCardsFromTable);
+
+/* GOOGLE TRANSLATE INIT */
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    { pageLanguage: 'en', includedLanguages:'en,te', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+    'google_translate_element'
+  );
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
