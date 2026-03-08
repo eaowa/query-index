@@ -221,8 +221,8 @@ const langObserver = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
     if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
       const newLang = document.documentElement.lang;
-      console.log('Language changed to:', newLang);  // Debug: see this in console
-      if (typeof gtag === 'function' && newLang !== 'en') {  // Ignore English default
+      console.log('Language changed to:', newLang);  // Debug: check console
+      if (typeof gtag === 'function') {
         gtag('event', 'language_change', {
           'selected_language': newLang
         });
