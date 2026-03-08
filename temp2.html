@@ -224,7 +224,7 @@ function googleTranslateElementInit() {
   );
 }
 
-/* GA4 event for language selection */
+// GA4 event for language selection
 function trackLanguageChange(lang) {
   if(typeof gtag === "function") {
     gtag('event', 'language_change', {
@@ -233,18 +233,28 @@ function trackLanguageChange(lang) {
   }
 }
 
-// Monitor Google Translate dropdown
-const observer = new MutationObserver(function(mutationsList) {
-  const langSelect = document.querySelector('#google_translate_element select');
-  if(langSelect && !langSelect.dataset.gaBound) {
-    langSelect.dataset.gaBound = "true"; // ensure we bind only once
-    langSelect.addEventListener('change', function() {
-      trackLanguageChange(this.value);
-    });
+// Poll the Google Translate iframe dropdown every 500ms and attach event once
+const translateInterval = setInterval(() => {
+  const iframe = document.querySelector('iframe.goog-te-menu-frame');
+  if(iframe) {
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    if(iframeDoc && !iframeDoc.body.dataset.gaBound) {
+      iframeDoc.body.dataset.gaBound = "true";
+      iframeDoc.body.addEventListener('click', function(e) {
+        const langLink = e.target.closest('a');
+        if(langLink && langLink.href) {
+          // Google Translate links contain "#googtrans(en|te)"
+          const matches = langLink.href.match(/#googtrans\((.*?)\)/);
+          if(matches && matches[1]) {
+            const lang = matches[1].split('/').pop();
+            trackLanguageChange(lang);
+          }
+        }
+      }, true);
+      clearInterval(translateInterval); // bound, no longer need polling
+    }
   }
-});
-
-observer.observe(document.body, { childList: true, subtree: true });
+}, 500);
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
