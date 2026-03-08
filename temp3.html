@@ -207,7 +207,7 @@ function generateCardsFromTable() {
       headerDiv.textContent=header;
       const valueDiv=document.createElement('div');
       // preserve line breaks
-      valueDiv.innerHTML = cells[index].textContent.replace(/\n/g, "<br>");
+      valueDiv.innerHTML = cells[index].innerHTML;
       card.appendChild(headerDiv);
       card.appendChild(valueDiv);
     });
