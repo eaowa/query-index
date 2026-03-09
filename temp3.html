@@ -52,7 +52,7 @@ h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;background:linear-gradient
 .view-container{display:none}
 .view-container.active{display:block}
 table{width:100%;min-width:800px;border-collapse:collapse;table-layout:fixed;}
-th{padding:1rem 1.2rem;text-align:left;font-weight:600;color:#444;font-size:.85rem;text-transform:uppercase;border-bottom:2px solid #e2e8ff;position:sticky;top:0}
+th{padding:1rem 1.2rem;text-align:left;font-weight:600;color:#444;font-size:0.99rem;border-bottom:2px solid #e2e8ff;position:sticky;top:0}
 td{padding:1rem 1.2rem;border-bottom:1px solid #f1f5f9;font-size:.9rem;vertical-align:top;word-wrap:break-word;white-space: pre-wrap;}
 .cards-container{display:flex;flex-direction:column;gap:1rem;padding:1rem}
 .card{background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);overflow:hidden;border:1px solid #e2e8ff}
@@ -94,11 +94,13 @@ margin:0 0 10px 0;
 <div id="google_translate_element"></div>
 
 <p class="disclaimer">
-This is a member-maintained index of queries posted in the owners' WhatsApp group. It is <strong>not an official record</strong> of the association and <strong>does not replace</strong> the statutory records that the Association Secretary and the Executive Committee are required to maintain. This index is a voluntary effort by the compiler, who is not an office-bearer. Its purpose is simply to organize queries and discussions so that members can refer to them easily. Suggestions or corrections to improve the accuracy of this index are welcome.</p>
+This is a member-maintained index of queries posted in the owners' WhatsApp group - a voluntary effort by the compiler, who is not an office-bearer. Its purpose is simply to organize queries and discussions so that members can refer to them easily. Suggestions or corrections to improve the accuracy of this index are welcome. 
+<br><br><sup>*</sup>This index is <strong>not an official record</strong> of the association and <strong>does not replace</strong> the statutory records that the Association Secretary and the Executive Committee are required to maintain. 
+</p>
 
 <div class="view-toggle">
-<button class="view-btn table-active" onclick="setView('table',this)">Table View</button>
-<button class="view-btn" onclick="setView('card',this)">Card View</button>
+<button class="view-btn card-active" onclick="setView('card',this)">Card View</button>
+<button class="view-btn" onclick="setView('table',this)">Table View</button>
 </div>
 
 <p class="update-note">Index last updated: <span id="lastUpdated"></span></p>
@@ -111,27 +113,27 @@ This is a member-maintained index of queries posted in the owners' WhatsApp grou
 </script>
   
 <p class="column-key">
-<sup>*</sup> Dt. refers to the original WhatsApp post date so members can locate the message in their WhatsApp history.
+<sup>*</sup>Dt. refers to the original WhatsApp post date so members can locate the message in their WhatsApp history.
 </p>
 <div class="table-wrapper">
 
 <!-- TABLE VIEW -->
-<div id="tableView" class="view-container active">
+<div id="tableView" class="view-container">
 <div class="table-scroll">
 
 <table>
 <thead>
 <tr>
-<th style="width:8%;">Sub.</th>
-<th style="width:4%;">Dt.<sup style="font-size:0.7em;">*</sup></th>
+<th style="width:3%;">Sub.</th>
+<th style="width:4%;"><sup>*</sup>Dt.</th>
 <th style="width:8%;">To</th>
-<th style="width:42%;">Context</th>
+<th style="width:47%;">Context</th>
 <th style="width:26%;">Query</th>
 <th style="width:12%;">Response</th>
 </tr>
 </thead>
 <tbody>
-<tr><td>Monthly Fee / Special Levy Formula</td><td>Mar 9 2026</td><td>Secretary Subba Rao Garu, Head Board</td><td>In Secretary Subba Rao garu’s Feb 18th message, he says “60000 *30 18 lakhs”. It appears that all 30 flats were charged the same special levy amount, likely also in 2019.<br><br>Using the same method for the combined 2019 and 2024 levies (~ Rs. 1.5 lakh per flat):<br><br>Equal-per-flat levy: 1.5 lakh * 30 = 45 lakh<br>If an area-based levy had been applied: 1.5 lakh * 35 = 52.5 lakh<br><br>Since flat-size details have not yet been shared, we can only make floor-level estimates to understand the levy distribution:<br><br>Lower floors (7 flats × 1.5 lakh) ~ Rs. 10.5 lakh per floor<br>Penthouse floor (2 flats × 1.5 lakh) ~ Rs. 3 lakh<br><br>Either way, based on the information currently available, these estimates indicate a potential imbalance in cost sharing between the 28 lower-floor flats and the 2 penthouses of ~ Rs. 7.5 lakh.</td><td>Secretary Subba Rao garu: As custodian of records, please provide the resolutions and voting records that document the approval of this special levy allocation formula.<br>  <br>Any Head Board members: Please confirm whether these calculations are roughly correct, and clarify the rationale for charging an equal-per-flat amount instead of a proportional floor-area method.<br><br>Happy to be corrected if any of the above figures or assumptions are inaccurate.</td><td></td></tr>
+<tr><td>Finances</td><td>Mar 9 2026</td><td>Secretary Subba Rao Garu, Head Board</td><td>In Secretary Subba Rao garu’s Feb 18th message, he says “60000 *30 18 lakhs”. It appears that all 30 flats were charged the same special levy amount, likely also in 2019.<br><br>Using the same method for the combined 2019 and 2024 levies (~ Rs. 1.5 lakh per flat):<br><br>Equal-per-flat levy: 1.5 lakh * 30 = 45 lakh<br>If an area-based levy had been applied: 1.5 lakh * 35 = 52.5 lakh<br><br>Since flat-size details have not yet been shared, we can only make floor-level estimates to understand the levy distribution:<br><br>Lower floors (7 flats × 1.5 lakh) ~ Rs. 10.5 lakh per floor<br>Penthouse floor (2 flats × 1.5 lakh) ~ Rs. 3 lakh<br><br>Either way, based on the information currently available, these estimates indicate a potential imbalance in cost sharing between the 28 lower-floor flats and the 2 penthouses of ~ Rs. 7.5 lakh.</td><td>Secretary Subba Rao garu: As custodian of records, please provide the resolutions and voting records that document the approval of this special levy allocation formula.<br>  <br>Any Head Board members: Please confirm whether these calculations are roughly correct, and clarify the rationale for charging an equal-per-flat amount instead of a proportional floor-area method.<br><br>Happy to be corrected if any of the above figures or assumptions are inaccurate.</td><td></td></tr>
 <tr><td>Tile Project</td><td>Mar 9 2026</td><td>Proposer of Tile Project</td><td>In the 2024 gathering, the reason given for the Tile Project was to reduce flooding in the cellar during rains. The proposed solution (a proposer was not identified at that time) was to raise the cellar floor height by installing tiles.<br><br>I had raised the following points:<br><br>1. Increasing the cellar floor height alone would make no difference for a given amount of rain. For example, if there were 2 inches of flooding on the concrete floor, installing tiles that raised the floor height by—say—4 inches would still result in the same 2 inches of water now standing on top of the tiled surface.<br><br>2. Laying tiles requires significant preparation and skill. For example, if the concrete surface is not leveled beforehand, or if the tiles are not properly bonded during installation, they can crack. We knew in 2024 that this had already happened in a neighbouring building's cellar.<br><br>These basic questions were not addressed in 2024 but may have been discussed later in the group.</td><td>I request the proposer of the tile project to respond to the two points above. <br><br>Also:<br><br>- What was the cost estimate? None was mentioned in the gathering. <br><br>- Please clarify the plan when tiles crack and the related expenses expected.<br><br>Those familiar with these discussions please comment or share screenshots. Thank you.</td><td></td></tr>
 </tbody>
 </table>
@@ -140,7 +142,7 @@ This is a member-maintained index of queries posted in the owners' WhatsApp grou
 </div>
 
 <!-- CARD VIEW -->
-<div id="cardView" class="view-container">
+<div id="cardView" class="view-container active">
 <div class="cards-container" id="cardsContainer"></div>
 </div>
 
