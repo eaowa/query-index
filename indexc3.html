@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embassy Apartments</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:1.5rem 1rem;background:linear-gradient(135deg,#f5f9ff 0%,#e8f4fd 100%);min-height:100vh;color:#333;line-height:1.5}
+.container{max-width:1000px;margin:auto}
+h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;line-height:1.8;background:linear-gradient(135deg,#0077cc,#005fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 0.2rem 0;text-align:center} 
+h1[translate="no"] {} 
+.subtitle{font-size:0.9rem;color:#555;text-align:center;margin:0 0 1rem 0;font-weight:500}
+.cards-container{display:flex;flex-direction:column;gap:1rem;padding:1rem}
+.accordion{border-radius:12px;overflow:hidden;margin-bottom:1rem;border:1px solid #e2e8ff}
+.accordion-header{background:#f8fbff;padding:1rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.accordion-header:hover{background:#e0f0ff}
+.accordion-body{display:none;flex-direction:column;gap:1rem;padding:0.5rem 1rem;background:#fff}
+.accordion-body.active{display:flex}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);overflow:hidden;border:1px solid #e2e8ff}
+.card-title{font-weight:600;color:#333;padding:.5rem 0}
+.card-summary{padding:.2rem 0;font-style:italic;color:#555;font-size:.9rem}
+.card-content{display:none;flex-direction:column;gap:0.3rem;padding:0.5rem 0}
+.card-content.active{display:flex}
+.card-content div {
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+    white-space: pre-wrap; /* preserve line breaks and spacing from your text */
+}
+.read-more{color:#0077cc;cursor:pointer;padding:0.3rem 0;font-weight:600;font-size:0.9rem}
+.disclaimer{font-size:.8rem;color:#666;margin:1rem 0 2rem 0;background:rgba(255,255,255,.8);padding:1.2rem;border-radius:12px;border-left:4px solid #0077cc}
+#google_translate_element{margin-bottom:1rem;text-align:center;}
+</style>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-somegoogleid"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-somegoogleid');
+</script>
+
+</head>
+<body>
+<div class="container">
+<h1 translate="no">Embassy Apartments</h1>
+<p class="subtitle">Member-maintained index of owners' WhatsApp queries</p>
+<!-- Google Translate -->
+<div id="google_translate_element"></div>
+
+<p class="disclaimer">
+This is a member-maintained index of queries posted in the owners' WhatsApp group - a voluntary effort by the compiler, who is not an office-bearer. Its purpose is simply to organize queries and discussions so that members can refer to them easily. 
+<br><br><sup>*</sup>This index is <strong>not an official record</strong> of the association and <strong>does not replace</strong> the statutory records that the Association Secretary and the Executive Committee are required to maintain. 
+</p>
+
+<p class="update-note">Index last updated: <span id="lastUpdated"></span></p>
+
+<div class="cards-container" id="cardsContainer">
+
+<!-- Paste Google Sheets formula output here for each card -->
+
+<!-- Dummy data example from your two long issues -->
+<div class="card" data-category="Financial" id="SL01">
+  <div class="card-title">Special Levy Calculation (Mar 9, 2026)</div>
+  <div class="card-summary">Unequal allocation among flats</div>
+  <div class="card-content">
+    <div><strong>Addressed to:</strong> Secretary Subba Rao Garu, Head Board</div>
+    <div><strong>Context:</strong> In Secretary Subba Rao garu’s Feb 18th message, he says “60000 *30 = 18 lakhs”. 
+It appears that all 30 flats were charged the same special levy amount, likely also in 2019.
+
+Using the same method for the combined 2019 and 2024 levies (~ Rs. 1.5 lakh per flat):
+- Equal-per-flat levy: 1.5 lakh * 30 = 45 lakh
+- If an area-based levy had been applied: 1.5 lakh * 35 = 52.5 lakh
+
+Since flat-size details have not yet been shared, we can only make floor-level estimates to understand the levy distribution:
+- Lower floors (7 flats × 1.5 lakh) ~ Rs. 10.5 lakh per floor
+- Penthouse floor (2 flats × 1.5 lakh) ~ Rs. 3 lakh
+
+Either way, based on the information currently available, these estimates indicate a potential imbalance in cost sharing between the 28 lower-floor flats and the 2 penthouses of ~ Rs. 7.5 lakh.</div>
+    <div><strong>Request:</strong> Secretary Subba Rao garu: As custodian of records, please provide the resolutions and voting records that document the approval of this special levy allocation formula.
+Any Head Board members: Please confirm whether these calculations are roughly correct, and clarify the rationale for charging an equal-per-flat amount instead of a proportional floor-area method.
+Happy to be corrected if any of the above figures or assumptions are inaccurate.</div>
+    <div><strong>Response:</strong></div>
+  </div>
+  <div class="read-more">Read more</div>
+</div>
+
+<div class="card" data-category="Financial" id="TP01">
+  <div class="card-title">Tile Project (Mar 9, 2026)</div>
+  <div class="card-summary">Raise cellar floor with tiles to reduce flooding</div>
+  <div class="card-content">
+    <div><strong>Addressed to:</strong> Proposer of Tile Project</div>
+    <div><strong>Context:</strong> In the 2024 gathering, the reason given for the Tile Project was to reduce flooding in the cellar during rains. 
+The proposed solution (a proposer was not identified at that time) was to raise the cellar floor height by installing tiles.
+
+I had raised the following points:
+1. Increasing the cellar floor height alone would make no difference for a given amount of rain. For example, if there were 2 inches of flooding on the concrete floor, installing tiles that raised the floor height by—say—4 inches would still result in the same 2 inches of water now standing on top of the tiled surface.
+2. Laying tiles requires significant preparation and skill. For example, if the concrete surface is not leveled beforehand, or if the tiles are not properly bonded during installation, they can crack. We knew in 2024 that this had already happened in a neighbouring building's cellar.
+
+These basic questions were not addressed in 2024 but may have been discussed later in the group.</div>
+    <div><strong>Request:</strong> I request the proposer of the tile project to respond to the two points above. 
+Also:
+- What was the cost estimate? None was mentioned in the gathering.
+- Please clarify the plan when tiles crack and the related expenses expected.
+Those familiar with these discussions please comment or share screenshots. Thank you.</div>
+    <div><strong>Response:</strong></div>
+  </div>
+  <div class="read-more">Read more</div>
+</div>
+
+<div class="card" data-category="Governance" id="MM01">
+  <div class="card-title">Minutes Missing (Mar 5, 2026)</div>
+  <div class="card-summary">Minutes from last AGM not available</div>
+  <div class="card-content">
+    <div><strong>Addressed to:</strong> Secretary & Committee</div>
+    <div><strong>Context:</strong> Minutes for last AGM have not been uploaded.</div>
+    <div><strong>Request:</strong> Provide missing minutes.</div>
+    <div><strong>Response:</strong> No response yet.</div>
+  </div>
+  <div class="read-more">Read more</div>
+</div>
+
+<div class="card" data-category="Governance" id="DA01">
+  <div class="card-title">Decision Approval (Mar 6, 2026)</div>
+  <div class="card-summary">No records of approval for recent levy</div>
+  <div class="card-content">
+    <div><strong>Addressed to:</strong> Committee Members</div>
+    <div><strong>Context:</strong> Levy decisions not documented.</div>
+    <div><strong>Request:</strong> Provide approval records.</div>
+    <div><strong>Response:</strong> Pending confirmation.</div>
+  </div>
+  <div class="read-more">Read more</div>
+</div>
+
+</div>
+
+<script>
+  // Show last updated date
+  const lastMod = new Date(document.lastModified);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('lastUpdated').textContent = lastMod.toLocaleDateString('en-US', options);
+
+  // Google Translate
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages:'en,te', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+  }
+
+  // Accordion & card expand/collapse
+  document.addEventListener('DOMContentLoaded',()=>{
+    const container = document.getElementById('cardsContainer');
+    // Group cards by category
+    const cards = Array.from(container.querySelectorAll('.card'));
+    const categoryMap = {};
+    cards.forEach(c=>{
+      const cat=c.dataset.category||'Uncategorized';
+      if(!categoryMap[cat]) categoryMap[cat]=[];
+      categoryMap[cat].push(c);
+    });
+    container.innerHTML='';
+    Object.keys(categoryMap).forEach(cat=>{
+      const group=categoryMap[cat];
+      const acc=document.createElement('div');
+      acc.className='accordion';
+      const header=document.createElement('div');
+      header.className='accordion-header';
+      header.textContent=`${cat} (${group.length})`;
+      header.addEventListener('click',()=>{body.classList.toggle('active');});
+      const body=document.createElement('div'); body.className='accordion-body';
+      group.forEach(c=>body.appendChild(c));
+      acc.appendChild(header); acc.appendChild(body); container.appendChild(acc);
+    });
+
+    // Read more toggles
+    container.querySelectorAll('.read-more').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const content=btn.previousElementSibling;
+        content.classList.toggle('active');
+        btn.textContent=content.classList.contains('active')?'Read less':'Read more';
+      });
+    });
+
+    // Deep link scroll
+    if(window.location.hash){
+      const el=document.querySelector(window.location.hash);
+      if(el){
+        requestAnimationFrame(()=>requestAnimationFrame(()=>el.scrollIntoView({behavior:'smooth',block:'start'})));
+      }
+    }
+  });
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
