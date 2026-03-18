@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apartment Queries</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;padding:1.5rem 1rem;background:linear-gradient(135deg,#f5f9ff 0%,#e8f4fd 100%);min-height:100vh;color:#333;line-height:1.5}
+.container{max-width:1000px;margin:auto}
+h1{font-size:clamp(1.6rem,5vw,2.2rem);font-weight:600;line-height:1.8;background:linear-gradient(135deg,#0077cc,#005fa3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 0.2rem 0;text-align:center}
+.subtitle{font-size:0.9rem;color:#555;text-align:center;margin:0 0 1rem 0;font-weight:500}
+@media (max-width:480px){h1{font-size:1.5rem;margin-bottom:0.5rem}.subtitle{font-size:0.8rem;margin-bottom:0.5rem}}
+
+.disclaimer{font-size:.8rem;color:#666;margin:1rem 0 2rem 0;background:rgba(255,255,255,.8);padding:1.2rem;border-radius:12px;border-left:4px solid #0077cc}
+.update-note{font-size:0.8rem;color:#777;margin:6px 0 2px 0;}
+#google_translate_element{margin-bottom:1rem;text-align:center}
+
+.accordion{border-radius:12px;overflow:hidden;margin-bottom:1rem;border:1px solid #e2e8ff}
+.accordion-header{background:#f8fbff;padding:1rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.accordion-header:hover{background:#e0f0ff}
+.accordion-count{background:#0077cc;color:#fff;font-size:0.8rem;padding:0.2rem 0.5rem;border-radius:8px}
+.accordion-body{display:none;flex-direction:column;gap:1rem;padding:0.5rem 1rem;background:#fff}
+
+.card{background:#f9f9f9;border-radius:12px;border:1px solid #e2e8ff;overflow:hidden;transition:all 0.3s ease;padding:0.5rem}
+.card-title{font-weight:600;cursor:pointer;font-size:1rem;margin-bottom:0.2rem}
+.card-date{font-size:0.8rem;color:#777;margin-bottom:0.3rem}
+.card-summary{font-size:0.9rem;color:#555;margin-bottom:0.3rem}
+.card-content {
+  display: none;
+  padding-top: 0.1rem;  /* smaller padding at top */
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre-wrap; /* keep intentional line breaks */
+}
+.card-content div {
+  margin-bottom: 0.9rem;  /* tighter spacing between sections */
+}
+.card-content strong{display:block;color:#005fa3;margin-bottom:0.2rem}
+.read-more{color:#0077cc;font-weight:500;font-size:0.85rem;cursor:pointer;margin-top:0.2rem}
+
+#searchBox{width:100%;padding:0.6rem 1rem;margin-bottom:1rem;border-radius:25px;border:1px solid #ccc;font-size:0.95rem}
+</style>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-somegoogleid"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config','G-somegoogleid');
+</script>
+</head>
+<body>
+<div class="container">
+<h1 translate="no">Embassy Apartments</h1>
+<p class="subtitle">Member-maintained index of owners' WhatsApp queries</p>
+
+<!-- Google Translate -->
+<div id="google_translate_element"></div>
+
+<div class="disclaimer">
+This is a member-maintained index of queries posted in the owners' WhatsApp group - a voluntary effort by the compiler, who is not an office-bearer. Its purpose is simply to organize queries and discussions so that members can refer to them easily.
+<br><br>
+<sup>*</sup>This index is <strong>not an official record</strong> of the association and <strong>does not replace</strong> the statutory records that the Association Secretary and the Executive Committee are required to maintain.
+</div>
+
+<p class="update-note">Index last updated: <span id="lastUpdated"></span></p>
+
+<input type="text" id="searchBox" placeholder="Search concerns..." />
+
+<div id="accordionContainer"></div>
+</div>
+
+<script>
+// Last updated date
+const lastMod = new Date(document.lastModified);
+const options = { year:'numeric',month:'long',day:'numeric' };
+document.getElementById('lastUpdated').textContent = lastMod.toLocaleDateString('en-US',options);
+
+// Dummy data including your two long examples
+const data = [
+{category:'Financial',issues:[
+{
+    title: "Special Levy Calculation",
+    date: "Mar 9, 2026",
+    summary: "Unequal allocation among flats",
+    addressedTo: "Secretary Subba Rao Garu, Head Board",
+    context: `In Secretary Subba Rao garu’s Feb 18th message, he says “60000 *30 = 18 lakhs”. 
+It appears that all 30 flats were charged the same special levy amount, likely also in 2019.
+
+Using the same method for the combined 2019 and 2024 levies (~ Rs. 1.5 lakh per flat):
+- Equal-per-flat levy: 1.5 lakh * 30 = 45 lakh
+- If an area-based levy had been applied: 1.5 lakh * 35 = 52.5 lakh
+
+Since flat-size details have not yet been shared, we can only make floor-level estimates to understand the levy distribution:
+- Lower floors (7 flats × 1.5 lakh) ~ Rs. 10.5 lakh per floor
+- Penthouse floor (2 flats × 1.5 lakh) ~ Rs. 3 lakh
+
+Either way, based on the information currently available, these estimates indicate a potential imbalance in cost sharing between the 28 lower-floor flats and the 2 penthouses of ~ Rs. 7.5 lakh.`,
+    request: `Secretary Subba Rao garu: As custodian of records, please provide the resolutions and voting records that document the approval of this special levy allocation formula.
+
+Any Head Board members: Please confirm whether these calculations are roughly correct, and clarify the rationale for charging an equal-per-flat amount instead of a proportional floor-area method.
+
+Happy to be corrected if any of the above figures or assumptions are inaccurate.`,
+    response: ""
+  },
+  {
+    title: "Tile Project",
+    date: "Mar 9, 2026",
+    summary: "Raise cellar floor with tiles to reduce flooding",
+    addressedTo: "Proposer of Tile Project",
+    context: `In the 2024 gathering, the reason given for the Tile Project was to reduce flooding in the cellar during rains. 
+The proposed solution (a proposer was not identified at that time) was to raise the cellar floor height by installing tiles.
+
+I had raised the following points:
+1. Increasing the cellar floor height alone would make no difference for a given amount of rain. For example, if there were 2 inches of flooding on the concrete floor, installing tiles that raised the floor height by—say—4 inches would still result in the same 2 inches of water now standing on top of the tiled surface.
+2. Laying tiles requires significant preparation and skill. For example, if the concrete surface is not leveled beforehand, or if the tiles are not properly bonded during installation, they can crack. We knew in 2024 that this had already happened in a neighbouring building's cellar.
+
+These basic questions were not addressed in 2024 but may have been discussed later in the group.`,
+    request: `I request the proposer of the tile project to respond to the two points above. 
+
+Also:
+- What was the cost estimate? None was mentioned in the gathering.
+- Please clarify the plan when tiles crack and the related expenses expected.
+
+Those familiar with these discussions please comment or share screenshots. Thank you.`,
+    response: ""
+  }
+]},
+{category:'Governance',issues:[
+  {title:'Minutes Missing',date:'Mar 5, 2026',summary:'Minutes from last AGM not available',
+   addressedTo:'Secretary & Committee',
+   context:'Minutes for last AGM have not been uploaded.',
+   request:'Provide missing minutes.',
+   response:'No response yet.'},
+  {title:'Decision Approval',date:'Mar 6, 2026',summary:'No records of approval for recent levy',
+   addressedTo:'Committee Members',
+   context:'Levy decisions not documented.',
+   request:'Provide approval records.',
+   response:'Pending confirmation.'}
+]}
+];
+
+// Build accordion
+const container=document.getElementById('accordionContainer');
+function buildAccordion(items){
+container.innerHTML='';
+items.forEach(group=>{
+  const acc=document.createElement('div');
+  acc.className='accordion';
+  const header=document.createElement('div');
+  header.className='accordion-header';
+  header.innerHTML=`${group.category} <span class="accordion-count">(${group.issues.length})</span>`;
+  acc.appendChild(header);
+
+  const body=document.createElement('div');
+  body.className='accordion-body';
+  group.issues.forEach(issue=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.innerHTML=`<div class="card-title">${issue.title} <span class="card-date">(${issue.date})</span></div><div class="card-summary">${issue.summary}</div><div class="card-content"><div><strong>Addressed to:</strong> ${issue.addressedTo}</div><div><strong>Context:</strong> ${issue.context}</div><div><strong>Request:</strong> ${issue.request}</div><div><strong>Response:</strong> ${issue.response}</div></div><div class="read-more">Read more</div>`;
+    // Read more toggle
+    const readMore = card.querySelector('.read-more');
+    const content = card.querySelector('.card-content');
+    readMore.onclick=()=>{content.style.display = content.style.display==='none'?'block':'none'; readMore.textContent = content.style.display==='none'?'Read more':'Read less';};
+
+    // Initially hide content
+    content.style.display='none';
+
+    body.appendChild(card);
+  });
+  acc.appendChild(body);
+  container.appendChild(acc);
+
+  // Accordion toggle
+  header.addEventListener('click',()=>{body.style.display = body.style.display==='flex'?'none':'flex';});
+});
+}
+
+// Initial render
+buildAccordion(data);
+
+// Search
+const searchBox=document.getElementById('searchBox');
+searchBox.addEventListener('input',()=>{
+  const term=searchBox.value.toLowerCase();
+  const filtered=data.map(group=>{
+    return {
+      category:group.category,
+      issues:group.issues.filter(issue=>
+        issue.title.toLowerCase().includes(term) ||
+        issue.summary.toLowerCase().includes(term) ||
+        issue.addressedTo.toLowerCase().includes(term) ||
+        issue.context.toLowerCase().includes(term) ||
+        issue.request.toLowerCase().includes(term) ||
+        issue.response.toLowerCase().includes(term)
+      )
+    };
+  }).filter(g=>g.issues.length>0);
+  buildAccordion(filtered);
+});
+
+// Google Translate
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement(
+    {pageLanguage:'en',includedLanguages:'en,te',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},
+    'google_translate_element'
+  );
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
