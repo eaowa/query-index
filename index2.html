@@ -197,7 +197,7 @@
 
 <!-- Dummy data example from your two long issues -->
 
-<div class="card" data-category="Document Requests" id="5"><div class="card-title">Monthly Statement + B/f Explanation Request (Feb 20, 2026)</div><div class="card-content"><div><strong><span class="label">Message:</span></strong> Treasurer Aanand garu, Secretary Subba Rao garu, I'm setting up NEFT for this month's fee and I see a B/f of Rs. 2400 and Fine of Rs.50. If it's a recording error, please fix and post corrected statement to group. <br><br>The last statement I had was from Dec which shows B/f 0. And as you can see from this Jan 20 message, I paid Jan's fee on that date, before Jan statement had been prepared. Please share the Jan statement as well as the ones from late 2025 that I'd previously requested.<br><br>If it's not a recording error, please explain.</div><div><strong><span class="label">Response:</span></strong> None</div></div><div class="read-more">Read more</div></div>
+<div class="card" data-category="July 7, 2026 Water Cut Off" id="1"><div class="card-content"><div><strong><span class="label">Topic:</span></strong><br>• Some residents discovered suddenly that there was no water.<br> <br>• When asked, watchman told residents that Municipality disconnected water due to non-payment.<br><br>• I met the AE of the Water Department who made some phone calls and told me that they had NOT cut off our water.<br><br>• He dispatched his Inspector on-site. He opened our sump - FOUND FULL. I took photographs of the full sump.<br><br>• I asked the watchman to turn on the pump so that those who had started buying water would no longer need to. Also, the sump would then have space for the next municipal water release.<br><br>• Before he could operate the pump, an individual (with no official position in our building) ordered him not to listen to me.<br><br>• Instead he demanded watchman go door-to-door to bring residents to the parking level for a meeting about a special levy.<br><br>• Also present was an ex-officer of our association who did not countermand the order to keep the pump off.<br><br>• Multiple residents witnessed the intervention.<br><br>• Only AFTER one resident threatened to report them did the individual with no official position instruct the watchman to turn on the pump. <br><br>- Some residents were unnecessarily taken by surprise. The usual water-issue protocol where watchman goes door-to-door to inform us that the water pump would not be operated that day was NOT followed.<br></div><div><strong><span class="label">Explanation:</span></strong> None</div></div><div class="read-more">Read more</div></div>
 <div class="card" data-category="Document Requests" id="17"><div class="card-title">Resolutions Adopted (Feb 21, 2026)</div><div class="card-content"><div><strong><span class="label">Message:</span></strong> Good evening all, I appreciate Secretary Subba Rao garu’s sentiment. I too am just an unpaid volunteer, trying to help our society. Last month, there was an incident targeting me in this building, which I didn't report to the police because I was busy. I joined this whatsapp group because I was told that transparency would be available here — which is why all my queries have been posted here. <br><br>Secretary Subba Rao garu, I would request that my repeated requests for documentation of resolutions approved in compliance with the bylaws please be considered.</div><div><strong><span class="label">Response:</span></strong> None</div></div><div class="read-more">Read more</div></div>
 <div class="card" data-category="Document Requests" id="19"><div class="card-title">Documents Review Request (Feb 22, 2026)</div><div class="card-content"><div><strong><span class="label">Message:</span></strong> Last Sunday, not knowing what had been written about me, I met residents expecting confrontation. Instead, every interaction was pleasant. I was even offered food, drink, and a gracious family gifted me Siva Rathri Prasadam! For my part, I am willing to work with anyone who genuinely wants to improve the functioning of our society and create a more open and accountable environment. As Secretary Subba Rao garu indicated I could contribute, I would be happy to set up an online archive that mirrors our physical statutory records. This ensures proper preservation of documentation and easy access—happy to do so voluntarily, no elected post required.<br><br>Secretary Subba Rao garu, thank you for confirming the 1997 practice is still followed. Since you are the custodian, I request you to let me review documents to understand the historical basis. I'd be happy to do so in the community room at a mutually convenient time.<br><br>The questions already posted concern governance and documentation matters that affect all members, and I trust they will be addressed in due course. You need not address them alone — any member of the head board or committee can respond. Any ordinary member who supports the decisions taken is welcome to respond here in the group.<br><br>Meanwhile, recent messages raise further serious concerns, which I will look into and revert on in a couple of days.</div><div><strong><span class="label">Response:</span></strong> None</div></div><div class="read-more">Read more</div></div>
 <div class="card" data-category="Document Requests" id="20"><div class="card-title">List of Duly Elected Executive Committee Members (Feb 28, 2026)</div><div class="card-content"><div><strong><span class="label">Message:</span></strong> Our Secretary Subba Rao garu had mentioned being part of the Committee for only the past 15 years. However, this document (from 1998) suggests his involvement goes back to the very founding of our association — giving him considerable experience in maintaining the records of this Association. As Secretary and custodian of our records, he is therefore best placed to respond to the following request. <br><br>*Formal Request to Secretary Subba Rao garu:* Under Societies Act requirements, please provide the current list of duly elected Executive Committee members.</div><div><strong><span class="label">Response:</span></strong> </div></div><div class="read-more">Read more</div></div>
@@ -237,71 +237,68 @@
     new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages:'en,te', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
   }
 
-  // Accordion & card expand/collapse
-  document.addEventListener('DOMContentLoaded',()=>{
-    const container = document.getElementById('cardsContainer');
-    // Group cards by category
-    const cards = Array.from(container.querySelectorAll('.card'));
-    const categoryMap = {};
-    cards.forEach(c=>{
-      const cat=c.dataset.category||'Uncategorized';
-      if(!categoryMap[cat]) categoryMap[cat]=[];
-      categoryMap[cat].push(c);
-    });
-    container.innerHTML='';
-    Object.keys(categoryMap).forEach(cat=>{
-      const group=categoryMap[cat];
-      const acc=document.createElement('div');
-      acc.className='accordion';
-      const header=document.createElement('div');
-      header.className='accordion-header';
-      header.textContent=`${cat} (${group.length})`;
-      header.addEventListener('click',()=>{body.classList.toggle('active');});
-      const body=document.createElement('div'); body.className='accordion-body';
-      group.forEach(c=>body.appendChild(c));
-      acc.appendChild(header); acc.appendChild(body); container.appendChild(acc);
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('cardsContainer');
+  const cards = Array.from(container.querySelectorAll('.card'));
+  const categoryMap = {};
 
-    // Read more toggles
-    container.querySelectorAll('.read-more').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-        const content = btn.previousElementSibling;
-        const card = btn.closest('.card');
-        const cardId = card ? card.id : 'unknown';
-
-        const isOpening = !content.classList.contains('active');
-
-        content.classList.toggle('active');
-        btn.textContent = content.classList.contains('active') ? 'Read less' : 'Read more';
-
-        // ✅ Load images ONLY when opening
-        if (isOpening) {
-        content.querySelectorAll('img.lazy').forEach(img => {
-            img.src = img.dataset.src;
-            img.classList.remove('lazy');
-        });
-        }
-
-        // ✅ GA tracking (your existing logic)
-        if (isOpening && card && !card.dataset.viewed) {
-        if (typeof gtag === 'function') {
-            gtag('event', 'card_view', {
-            card_id: cardId
-            });
-        }
-        card.dataset.viewed = "true";
-        }
-    });
-    });
-
-    // Deep link scroll
-    if(window.location.hash){
-      const el=document.querySelector(window.location.hash);
-      if(el){
-        requestAnimationFrame(()=>requestAnimationFrame(()=>el.scrollIntoView({behavior:'smooth',block:'start'})));
-      }
-    }
+  // Group cards by category (column B) — same as before
+  cards.forEach(c => {
+    const cat = c.dataset.category || 'Uncategorized';
+    if (!categoryMap[cat]) categoryMap[cat] = [];
+    categoryMap[cat].push(c);
   });
+
+  // Clear container, rebuild as simple topic list
+  container.innerHTML = '';
+
+  Object.keys(categoryMap).forEach(cat => {
+    const group = categoryMap[cat];
+
+    // Create clickable header — just the category name, no count
+    const header = document.createElement('div');
+    header.className = 'accordion-header';
+    header.style.cursor = 'pointer';
+    header.style.padding = '10px';
+    header.style.fontWeight = 'bold';
+    header.style.borderBottom = '1px solid #ddd';
+    header.textContent = cat;
+
+    // Create body to hold the E2 text(s)
+    const body = document.createElement('div');
+    body.className = 'accordion-body';
+    body.style.display = 'none';
+    body.style.padding = '15px';
+
+    // Pull card-content (E2 text) from each card in this group
+    group.forEach(c => {
+      const content = c.querySelector('.card-content');
+      if (content) {
+        const clone = content.cloneNode(true);
+        clone.style.display = 'block';    // Force visible
+        clone.style.maxHeight = 'none';   // Remove any height limit
+        clone.style.overflow = 'visible';
+        body.appendChild(clone);
+      }
+    });
+
+    // Click handler — toggle text + GA tracking
+    header.addEventListener('click', () => {
+      const isOpening = body.style.display === 'none';
+      body.style.display = isOpening ? 'block' : 'none';
+
+      // ✅ GA tracking
+      if (isOpening && typeof gtag === 'function') {
+        gtag('event', 'topic_click', {
+          topic_name: cat
+        });
+      }
+    });
+
+    container.appendChild(header);
+    container.appendChild(body);
+  });
+});
 </script>
 
 <!-- Contact Section Start -->
